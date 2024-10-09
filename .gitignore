@@ -308,4 +308,4 @@ TSWLatexianTemp*
 .DS_Store
 
 # ignore compiled pdfs in subdirectories
-*/*.pdf
+**/*.pdf
