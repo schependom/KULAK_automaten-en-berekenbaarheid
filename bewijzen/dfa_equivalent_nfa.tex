@@ -1,0 +1,36 @@
+\documentclass[../aanvullingen_cursus.tex]{subfiles}
+\begin{document}
+
+\begin{stelling}
+	\( (Q',\Sigma, \delta', q_s',F') \) is een DFA equivalent met de NFA \((Q,\Sigma,\delta,q_s,F)\)
+\end{stelling}
+
+\begin{proof}
+	Uit de constructie op pagina 27-28 volgt duidelijk dat de geconstrueerde automaat een \underline{D}FA is:
+	\begin{itemize}
+		\item Er zijn geen \( \varepsilon \)-bogen, want \( \delta'(q',a) \) is enkel gedefinieerd voor \( a \in \Sigma \) (en \( q'\in Q' \)), m.a.w. \( a\neq \varepsilon \)
+		\item De functie \( \delta':Q' \times \Sigma \to Q' \) is een totale functie: ze is overal goed gedefinieerd.
+	\end{itemize}
+
+	Wat betreft de equivalentie, moeten we verifiëren dat \[ \forall w \in \Sigma^*: \quad q_s' \overset{w}{\rightsquigarrow} F'  \text{ (in de DFA)} \quad \Longleftrightarrow \quad q_s \overset{w}{\rightsquigarrow} F \text{ (in de NFA)}\]
+
+	We bewijzen beide richtingen.
+	\begin{enumerate}
+		\item[\( \Rightarrow \)] Deze implicatie volgt uit iets algemeners dat we nu zullen bewijzen: zij \(S\) een deelverzameling van \( Q \) gesloten onder \epsilonbogen. Dan geldt \[ \forall w \in \Sigma^*: \quad q_{s}' \overset{w}{\rightsquigarrow} S \text{ (in de DFA)} \quad \Longrightarrow \quad \forall p \in S: q_s \overset{w}{\rightsquigarrow} p \text{ (in de NFA)}  \] Dit bewijzen we per inductie op de lengte van \( w \).
+		\begin{itemize}
+			\item \underline{Basisstap}: Als \(\abs{w}=0\), dan geldt dat \(w = \epsilon = \) de lege string. Neem aan dat \(q_{s}' \overset{w}{\rightsquigarrow} S\). Dan is \(S=q_s'=\{q_s, \text{toestanden bereikbaar vanuit }q_s \text{ met }\epsilon\}\). We zien nu duidelijk in dat de implicatie geldt en dat elke toestand in \(S\) bereikbaar is vanuit \(q_s\) met \(w\).
+			\item \underline{Inductiehypothese}: veronderstel dat de stelling geldt voor alle strings \(w\) van hoogstens lengte \(\abs{w}=n\).
+			\item \underline{Inductiestap}: Beschouw een string \(w' = wa \) (met \(a \in \Sigma\)) van lengte \(n+1\).
+
+			We willen aantonen dat als \(q_{s}' \overset{wa}{\rightsquigarrow} S\), dan geldt \(\forall p \in S: q_s \overset{wa}{\rightsquigarrow} p\). Zij \(S_2\) de toestand in de DFA zodat \(q_{s}' \overset{w}{\rightsquigarrow} S_2\). Wegens de inductiehypothese geldt nu \[ \forall p\in S_2: \quad q_s \overset{w}{\rightsquigarrow} p\]We kunnen in in de DFA in \(S\) geraken door een pijl met label \(a\) te volgen vanuit toestand \(S_2\). Dit betekent precies dat \(S\) de verzameling is van alle toestanden die we in de NFA kunnen bereiken door vanuit een toestand in \(S_2\) een pijl te nemen met een label \(a\) erop, gevolgd door eventueel een aantal \epsilonbogen. En dus geldt voor iedere \(p \in S\) dat \(q_s \pijl{w'} q \), hetgeen we wilden bewijzen.
+		\end{itemize}
+
+		Nu volgt de rechterimplicatie \[q_s'\pijl{w}F' \quad \Longrightarrow \quad \exists S \in F': q_s' \pijl{w} S \overset{\text{hierboven}}{\Rightarrow} \forall p \in S: q_s \pijl{w} p \quad \overset{S \in F'}{\Longrightarrow} \quad \exists p \in S : p \in F\] Voor die laatste \(p\) geldt dus ook dat \(q_s \pijl{w} p\) en dus \(q_s \pijl{w} F\)
+
+		\item[\(\Leftarrow\)] Als \(q_s \pijl{w} F\), dan bestaat er een \(q \in F\) zodat \(q_s \pijl{w} q\). Er bestaat in de NFA dus een accepterend pad \(q_s, q_1, q_2, ..., q_n, q\). Voor een toestand \( q \) in de NFA, zij \(S(q)\) de grootste verzameling die \(q\) bevat en gesloten is onder \epsilonbogen. Nu is \(S(q_s), S(q_1), S(q_2), ..., S(q_n), S(q)\) een accepterend pad in de DFA. En dus \(q_{s}' \pijl{w} S(q)\) en dus \(q_{s}' \pijl{w} F'\).
+	\end{enumerate}
+
+	%		Nu geldt dat de DFA een string \( w \) aanvaardt a.s.a. voor de unieke toestand \( q' \) zodat \( q_s'\overset{w}{\rightsquigarrow} q' \) geldt dat: \[q' \cap F \neq \emptyset \quad \Leftrightarrow \quad q_w'\cap F \neq \emptyset \quad \Leftrightarrow \quad \text{de NFA aanvaardt } w\]
+\end{proof}
+
+\end{document}

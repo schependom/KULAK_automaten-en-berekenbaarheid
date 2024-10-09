@@ -1,0 +1,42 @@
+\documentclass[../aanvullingen_cursus.tex]{subfiles}
+\begin{document}
+
+\begin{stelling}
+	\(\DFA_{\text{min}}\) is een DFA, equivalent met \(\DFA\), en alle toestanden zijn f-verschillend.
+\end{stelling}
+
+\begin{proof}
+	\(\DFA_{\text{min}}\) is een DFA:
+	\begin{itemize}
+		\item Er zijn geen \(\varepsilon\)-bogen
+		\item 2 verschillende bogen met hetzelfde symbool vanuit \(p\) en \(q\)  versmelten wanneer de twee toestanden zelf versmelten door f-gelijkheid:
+		stel namelijk dat \(p\) en \(q\) f-gelijk zijn. Dan zijn ook \( p'=\delta(p,a) \) en \( q'=\delta(q,a) \) f-gelijk. We bewijzen dat.
+
+		De f-strings van \(p\) en \(q\) zijn gelijk, dus ook hun f-strings van de vorm \(as\). De f-strings van \(p'\) zijn de strings \( s \) zodat \( as \) een f-string is van \( p \). Hetzelfde geldt voor \( q' \). Bijgevolg hebben \( p' \) en \( q' \) dezelfde f-strings en zijn ze f-gelijk.
+	\end{itemize}
+
+	De equivalentie van \(\DFA\) en \(\DFA_{\text{min}}\) bewijzen we door per inductie aan te tonen dat \[ w \text{ is een f-string van } Q_i \text{ (in } \DFA_{\text{min}} \text{)} \quad \Longleftrightarrow \quad w \text{ is een f-string van alle } q\in Q_i \text{ (in } \DFA_{\text{origineel}} \text{)}\]
+
+	\begin{itemize}
+		\item \underline{Basisstap}: als de lengte van de string \(w\) gelijk is aan 0, geldt dat \(w=\epsilon\). Nu geldt dat
+		\begin{equation*}
+			\begin{split}
+				\epsilon \text{ is een f-string van } Q_i &\Leftrightarrow Q_i \in \tilde{F} \\
+				&\Leftrightarrow Q_i \subseteq F \\
+				&\Leftrightarrow q \in F \qquad (\forall q \in Q_i)\\
+				&\Leftrightarrow \epsilon \text{ is een f-string van alle } q \in Q_i
+			\end{split}
+		\end{equation*}
+		\item \underline{Inductiehypothese}: stel dat \(w \text{ is een f-string van } Q_i \Leftrightarrow w \text{ is een f-string van alle } q\in Q_i \) (met \(\abs{w}=n\)).
+		\item \underline{Inductiestap}: beschouw de string \(w'=aw\). We tonen aan dat de stelling ook geldt voor deze string van lengte \(\abs{w'}=n+1\), m.a.w. we tonen aan dat \[w'=aw \text{ is een f-string van } Q_i \Leftrightarrow w'=aw \text{ is een f-string van alle } q\in Q_i \]. Er geldt dat
+		\begin{align*}
+			aw \text{ is een f-string van } Q_i &\Leftrightarrow \tilde{\delta}^*(Q_i,aw) \in \tilde{F} \\
+			&\Leftrightarrow \tilde{\delta}^*\left(\tilde{\delta}(Q_i,a),w\right) \in \tilde{F} && \text{(eigenschap op p.30)} \\
+			&\Leftrightarrow w \text{ is een f-string van } \tilde{\delta}(Q_i,a)\\
+			&\Leftrightarrow w \text{ is een f-string van alle } q \in \tilde{\delta}(Q_i,a) && \text{(inductiehypothese)} \\
+			&\Leftrightarrow aw \text{ is een f-string van alle } q \in Q_i
+		\end{align*}
+	\end{itemize}
+\end{proof}
+
+\end{document}

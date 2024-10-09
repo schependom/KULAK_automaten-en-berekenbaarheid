@@ -1,0 +1,18 @@
+\documentclass[../aanvullingen_cursus.tex]{subfiles}
+\begin{document}
+
+\begin{stelling}
+	De omzetting van NFA naar GNFA wijzigt de verzameling aanvaarde strings niet.
+\end{stelling}
+
+\begin{proof}
+	\hfill
+	\begin{itemize}
+		\item Stel dat NFA dezelfde taal $L_E$ bepaalt als een reguliere expressie $E$. Een nieuwe begintoestand toevoegen met een $\epsilon$ boog naar de oude staat gelijk aan de expressie $\epsilon E$, dewelke gelijk is aan $E$.
+		\item Stel dat NFA dezelfde taal $L_E$ bepaalt als een reguliere expressie $E$. Een nieuwe eindtoestand toevoegen met een $\epsilon$ bogen van de oude toestanden naar de nieuwe, staat gelijk aan de expressie $E\epsilon$, dewelke gelijk is aan $E$.
+		\item Het toevoegen van de extra bogen om de GNFA te vervolledigen wijzigt de verzameling aanvaarde talen niet. Deze $\phi$-bogen kunnen niet gevolgd worden en dus kunnen er geen toestanden bereikt worden die voordien niet bereikt konden worden.
+		\item Indien we twee parallelle gerichte bogen met labels $a_1 \in \Sigma$ en $a_2 \in \Sigma$ samennemen als een unie van die labels, dan verandert de verzameling aanvaarde strings niet. We kunnen immers de reguliere expressie $E_1|E_2$ met $E_1 = a_1$ en $E_2 = a_2$ omzetten naar een NFA met twee toestanden waarvan tussen er twee parallelle gerichte bogen lopen die de labels $a_1$ en $a_2$ hebben.
+	\end{itemize}
+\end{proof}
+
+\end{document}
