@@ -19,7 +19,10 @@
 \newcommand{\DFA}{\text{DFA}}
 \newcommand{\epsilonboog}{\( \varepsilon \)-boog }
 \newcommand{\epsilonbogen}{\( \varepsilon \)-bogen}
+\newcommand{\epsilonbogens}{\( \varepsilon \)-bogen }
 \let\epsilon\varepsilon
+\newcommand{\mnl}{MN\((L)\)}
+\DeclareMathOperator{\reach}{reach}
 
 \newcommand{\abs}[1]{\lvert #1 \rvert}
 \newcommand{\pijl}[1]{\overset{#1}{\rightsquigarrow}}
@@ -76,6 +79,7 @@
 
 	\subfile{allerlei/constructie_concat_ster}
 
+	\newpage
 	\subsection*{Pagina 21, bewijs structurele inductie}
 
 	\subfile{bewijzen/constructie_nfa_re_bewaart_taal}
@@ -84,13 +88,24 @@
 
 	\subfile{bewijzen/nfa_naar_gnfa}
 
+	\newpage
 	\subsection*{Pagina 28, bewijs DFA}
 
 	\subfile{bewijzen/dfa_equivalent_nfa}
 
+	\subsection*{Pagina 30}
+
+	\subfile{bewijzen/delta_ster.tex}
+
+	\newpage
 	\subsection*{Pagina 34, bewijs \( \DFA_{\text{min}} \)}
 
 	\subfile{bewijzen/dfa_min_equivalent_dfa}
+
+	\newpage
+	\subsection*{Pagina 43, equivalentie \mnl en DFA}
+
+	\subfile{bewijzen/dfa_mnl_equiv}
 
 
 \end{document}

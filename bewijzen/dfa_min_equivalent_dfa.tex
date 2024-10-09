@@ -2,10 +2,11 @@
 \begin{document}
 
 \begin{stelling}
-	\(\DFA_{\text{min}}\) is een DFA, equivalent met \(\DFA\), en alle toestanden zijn f-verschillend.
+	\(\DFA_{\text{min}}\) is een unieke DFA, equivalent met \(\DFA\), en alle toestanden zijn f-verschillend.
 \end{stelling}
 
 \begin{proof}
+
 	\(\DFA_{\text{min}}\) is een DFA:
 	\begin{itemize}
 		\item Er zijn geen \(\varepsilon\)-bogen
@@ -19,24 +20,25 @@
 
 	\begin{itemize}
 		\item \underline{Basisstap}: als de lengte van de string \(w\) gelijk is aan 0, geldt dat \(w=\epsilon\). Nu geldt dat
-		\begin{equation*}
-			\begin{split}
-				\epsilon \text{ is een f-string van } Q_i &\Leftrightarrow Q_i \in \tilde{F} \\
-				&\Leftrightarrow Q_i \subseteq F \\
-				&\Leftrightarrow q \in F \qquad (\forall q \in Q_i)\\
-				&\Leftrightarrow \epsilon \text{ is een f-string van alle } q \in Q_i
-			\end{split}
-		\end{equation*}
-		\item \underline{Inductiehypothese}: stel dat \(w \text{ is een f-string van } Q_i \Leftrightarrow w \text{ is een f-string van alle } q\in Q_i \) (met \(\abs{w}=n\)).
-		\item \underline{Inductiestap}: beschouw de string \(w'=aw\). We tonen aan dat de stelling ook geldt voor deze string van lengte \(\abs{w'}=n+1\), m.a.w. we tonen aan dat \[w'=aw \text{ is een f-string van } Q_i \Leftrightarrow w'=aw \text{ is een f-string van alle } q\in Q_i \]. Er geldt dat
 		\begin{align*}
-			aw \text{ is een f-string van } Q_i &\Leftrightarrow \tilde{\delta}^*(Q_i,aw) \in \tilde{F} \\
-			&\Leftrightarrow \tilde{\delta}^*\left(\tilde{\delta}(Q_i,a),w\right) \in \tilde{F} && \text{(eigenschap op p.30)} \\
-			&\Leftrightarrow w \text{ is een f-string van } \tilde{\delta}(Q_i,a)\\
-			&\Leftrightarrow w \text{ is een f-string van alle } q \in \tilde{\delta}(Q_i,a) && \text{(inductiehypothese)} \\
-			&\Leftrightarrow aw \text{ is een f-string van alle } q \in Q_i
+				\epsilon \text{ is een f-string van } Q_i &\Leftrightarrow Q_i \in \tilde{F} \\
+				&\Leftrightarrow Q_i \subseteq F && \text{definitie } \tilde{F} \\
+				&\Leftrightarrow \forall q \in Q_i : q \in F \\
+				&\Leftrightarrow \epsilon \text{ is een f-string van alle } q \in Q_i
+		\end{align*}
+		\item \underline{Inductiehypothese}: stel dat de stelling geldt voor strings \(w\) van hoogstens lengte \(\abs{w}=n\).
+		\item \underline{Inductiestap}: beschouw de string \(w'=bw\). We tonen aan dat de stelling ook geldt voor deze string van lengte \(\abs{w'}=n+1\), m.a.w. we tonen aan dat \[w'=bw \text{ is een f-string van } Q_i \Leftrightarrow w'=bw \text{ is een f-string van alle } q\in Q_i \]Er geldt dat
+		\begin{align*}
+			bw \text{ is een f-string van } Q_i &\Leftrightarrow \tilde{\delta}^*(Q_i,bw) \in \tilde{F} \\
+			&\Leftrightarrow \tilde{\delta}^*\left(\tilde{\delta}(Q_i,b),w\right) \in \tilde{F} && \text{(ind. definitie } \delta^*\text{)} \\
+			&\Leftrightarrow w \text{ is een f-string van } \tilde{\delta}(Q_i,b)\\
+			&\Leftrightarrow w \text{ is een f-string van alle } q \in \tilde{\delta}(Q_i,b) && \text{(inductiehypothese)} \\
+			&\Leftrightarrow bw \text{ is een f-string van alle } q \in Q_i
 		\end{align*}
 	\end{itemize}
+
+	\textbf{Zie p45 voor het bewijs van de uniciteit.}
+
 \end{proof}
 
 \end{document}

@@ -21,7 +21,7 @@
 
 		Alternatief: maak een generische product DFA die \(\bar{L}=\Sigma^*\setminus L \) bepaalt:
 		\begin{itemize}
-			\item \(\DFA_1\) is de DFA die \(\Sigma^*\) bepaalt: hij bevat 1 (aanvaardende) toestand, waar twee bogen toekomen: de startboog en de cyclische boog met daarop alle symbolen uit het alfabet.
+			\item \(\DFA_1\) is de DFA die \(\Sigma^*\) bepaalt: hij bevat 1 (aanvaardende) toestand, waar twee bogen toekomen: de startboog en de cyclische boog met daarop alle symbolen uit het alfabet. Deze laatste boog vertrekt natuurlijk ook uit die enige toestand.
 			\item \(\DFA_2\) is de DFA die \(L\) bepaalt.
 			\item \(Q=Q_1 \times Q_2\)
 			\item \(\delta(p \times q, x)=\delta_1(p,x) \times \delta_2(q,x) \quad \Leftrightarrow \quad
