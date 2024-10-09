@@ -1,0 +1,270 @@
+\documentclass[kulak]{kulakarticle}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts} % for \mathbb
+\usepackage{amsthm}
+\usepackage{tcolorbox}
+\usepackage{mathtools}
+\usepackage{siunitx}
+\usepackage{subfiles}
+
+\newcommand{\R}{\mathbb{R}} % Real numbers
+\newcommand{\C}{\mathbb{C}} % Complex numbers
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\powerset[1]}{\mathcal{P}(#1)}
+
+\newcommand{\NFA}{\text{NFA}}
+\newcommand{\DFA}{\text{DFA}}
+\newcommand{\epsilonboog}{\( \varepsilon \)-boog }
+\newcommand{\epsilonbogen}{\( \varepsilon \)-bogen}
+\let\epsilon\varepsilon
+
+\newcommand{\abs}[1]{\lvert #1 \rvert}
+\newcommand{\pijl}[1]{\overset{#1}{\rightsquigarrow}}
+
+\newcommand{\rood[1]}{\color{red}#1\color{black}}
+
+\sisetup{output-decimal-marker={,}}
+\sisetup{separate-uncertainty=true}		% Dit is voor de plus-minus
+\sisetup{per-mode=fraction}
+
+\DeclareSIUnit\biti{bit_i}
+\DeclareSIUnit\combinatie{combinatie}
+
+\usepackage[dutch]{babel}
+\usepackage{hyperref}
+
+\setlength{\parindent}{0pt}
+
+\usepackage{amsthm}
+\usepackage{tcolorbox}
+\theoremstyle{definition}
+\newtheorem*{stelling}{Stelling}
+
+\tcolorboxenvironment{stelling}{
+	boxrule=1pt,
+	boxsep=2pt,
+	left=2pt,right=2pt,top=2pt,bottom=2pt,
+	sharp corners,
+	before skip=\topsep,
+	after skip=\topsep,
+}
+
+\title{Aanvullingen cursus A\&B}
+\author{Vincent Van Schependom}
+\date{Academiejaar 2024-2025}
+\address{
+	\textbf{Groep Wetenschap \& Technologie Kulak} \\
+	Informatica \\
+	Automaten \& Berekenbaarheid}
+
+\begin{document}
+
+	\maketitle
+
+	\subsection*{Pagina 11, bewijs subalgebra:}
+
+	\subfile{bewijzen/subalgebra}
+
+	\subsection*{Pagina 15, zelf doen 4:}
+
+	Construeer \(M'=(Q',\Sigma,\delta',q_s',F')\):
+	\begin{itemize}
+		\item \( Q'=Q\cup\{q_s'\} \)
+		\item \( F'=\{q_s\} \)
+		\item Draai alle bogen in \(M\) om
+		\item Voeg een \( \varepsilon \)-boog toe vanuit \( q_s' \) naar elke \(q_{e,i} \in F\)
+	\end{itemize}
+
+	Deze NFA bepaalt de omgekeerde taal van \(L=L_M\).
+
+	\subsection*{Pagina 18-20, de algebra van NFA's}
+
+	Gegeven \(\NFA_1 = (Q_1,\Sigma,\delta_1,q_{s1},\{q_{f1}\})\) en \(\NFA_2 = (Q_2,\Sigma,\delta_2,q_{s2},\{q_{f2}\})\). \\
+
+	De concatenatie \(\NFA_1\NFA_2\) is de \(\NFA = (Q,\Sigma,\delta,q_s,\{q_f\})\) waarbij
+
+	\begin{itemize}
+		\item \(Q = Q_1 \cup Q_2\)
+		\item \rood[\( q_s=q_{s1} \)]
+		\item \(F = \{q_{f2}\}\)
+		\item \(\delta\) gedefinieerd als:
+		\begin{alignat*}{3}
+			& \delta(q_{f1}, x)           &  & = \emptyset      &  & \quad \forall x \in \Sigma                                                     \\
+			& \delta(q_{f1}, \varepsilon) &  & = q_{s2}         &  &                                                                                \\
+			& \delta(q, x)                &  & = \delta_1(q, x) &  & \quad \forall q \in Q_1 \setminus \{q_{f1}\}, \forall x \in \Sigma_\varepsilon \\
+			& \delta(q, x)                &  & = \delta_2(q, x) &  & \quad \forall q \in Q_2, \forall x \in \Sigma_\varepsilon
+		\end{alignat*}
+		Hierbij moet de eerste regel eigenlijk niet expliciet worden vermeld. We zijn hier bezig met NFA's, dus als er geen overgangsregel voor een bepaald symbool \( x \) gedefinieerd is, wordt er vanuit gegaan dat \( \delta(q,x)=\emptyset \).
+	\end{itemize}
+
+	De ster \((\NFA_1)^*\) is de \(\NFA = (Q,\Sigma,\delta,q_s,\{q_f\})\) waarbij
+
+	\begin{itemize}
+		\item \(Q = Q_1 \cup \{q_s,q_f\}\)
+		\item \(F = \{q_{f}\}\)
+		\item \(\delta\) gedefinieerd als:
+		\begin{alignat*}{3}
+			& \delta(q_{s}, x)            &  & = \emptyset         &  & \quad \forall x \in \Sigma                                \\
+			& \delta(q_{s}, \varepsilon)  &  & = \{q_{s1},q_{f1}\} &  &                                                           \\
+			& \delta(q_{f1}, \varepsilon) &  & = \{q_{s},q_{f}\}   &  &                                                           \\
+			& \delta(q_{f1}, x)            &  & = \emptyset    &  & \quad \forall x \in \Sigma \\
+			& \delta(q, x)                &  & = \delta_1(q, x)    &  & \quad \forall q \in Q_1 \setminus \{q_{f1}\}, \forall x \in \Sigma_{\rood[\varepsilon]}
+		\end{alignat*}
+	\end{itemize}
+
+	\subsection*{Pagina 21, bewijs structurele inductie}
+
+	\begin{stelling}
+		Onderstaande constructie bewaart de taal, t.t.z. \( L_{\NFA_E}=L_E \)
+		\begin{itemize}
+			\item \( \NFA_{E_1E_2}=\operatorname*{concat}(\NFA_{E_1},\NFA_{E_2}) \)
+			\item \( \NFA_{E_1^*}=\operatorname*{ster}(\NFA_{E_1}) \)
+			\item \( \NFA_{E_1|E_2}=\operatorname*{unie}(\NFA_{E_1},\NFA_{E_2}) \)
+		\end{itemize}
+	\end{stelling}
+
+	\begin{proof}
+		We bewijzen eerst volgende hulpstellingen:
+		\begin{itemize}
+			\item \underline{De concatenatie van \( \NFA_1 \) en \( \NFA_2 \) bepaalt \( L_{\NFA_1}L_{\NFA_2} \)}:
+
+			We voeren volgende notatie in: \[ \text{NFA } C = \operatorname*{concat}(\NFA_{1},\NFA_{2}) \] Volgens de definitie van de concatenatie van twee talen geldt dat \[ L_{\NFA_1}L_{\NFA_2}=\{xy \mid x \in L_{\NFA_1}, y \in L_{\NFA_2}\} \] We moeten bewijzen dat \[ s \in L_{C} \Leftrightarrow s \in L_{\NFA_1}L_{\NFA_2} \]
+			\begin{enumerate}
+				\item[\( \Rightarrow \)] Neem aan dat \( s \in L_C \). Bij het parsen van deze string \( s \) met de machine C zullen we op een gegeven moment gegarandeerd in de toestand \(q_{f1}\) terechtkomen, aangezien dat de enige toestand is van waaruit we naar de machine \( \NFA_2 \) kunnen geraken. Dit gebeurt door een \epsilonboog  te nemen naar \( q_{s2} \). Noem de string die geparst is tijdens deze eerste fase \(x\) en neem de \epsilonboog van \( q_{f1} \) naar \( q_{s2} \). Er blijft -- vanuit deze starttoestand van \( \NFA_2 \) -- een string \( y \) over. Na het parsen van deze string \( y \) komen we in de toestand \( q_{f2} \) terecht, want \( s \in L_C \) en de enige (\(\varepsilon\)-)boog naar \( q_f \) vertrekt vanuit deze toestand. Omdat \( x \in L_{\NFA_1} \) (na het parsen van \( x \) belanden we in een aanvaardende toestand \( q_{f1} \) van \( \NFA_1 \)) en \( y \in L_{\NFA_2} \) (analoog), geldt dat \( s = xy \in L_{\NFA_1}L_{\NFA_2} \).
+				\item[\(\Leftarrow\)] Als de string \( s \in L_{\NFA_1}L_{\NFA_2} \), dan bestaat \( s \) uit twee substrings, zodat \( s=xy \) met \( x \in L_{\NFA_1} \) en \( y \in L_{\NFA_2} \). Dat wil zeggen dat bij het doorlopen van C, we vanuit \( q_s \) in een eindig aantal stappen in \( q_{f1} \) terechtkomen. Van hieruit nemen we een \epsilonboog naar de begintoestand van \( \NFA_2 \). Vervolgens bereiken we na nog een eindig aantal extra stappen de toestand \(q_{f2}\), van waaruit we een \epsilonboog nemen naar de aanvaardende toestand \(q_f\). Hiermee hebben we aangetoond dat de string \(s\) wordt aanvaard door NFA \(C\), m.a.w. \(s \in L_{C}.\)
+			\end{enumerate}
+
+			\item \underline{De ster van \( \NFA_1 \) bepaalt \( L_{\NFA_1}^* \)}:
+
+			We voeren volgende notatie in: \[ \text{NFA } S = \operatorname*{ster}(\NFA_{1}) \] De Kleene-ster van een taal \( L \) is de unie van alle talen \(L^n\) die ontstaan wanneer we deze taal \( n \) keer concateneren met zichzelf (\(n \in \N\)). Per definitie geldt dat \(\varepsilon \in L^*\), want er geldt dat \( L^0=\{\varepsilon\} \). We moeten bewijzen dat \[ s \in L_{S} \Leftrightarrow s \in L_{\NFA_1}^* \]
+
+			Voor elk accepterend pad in \( L_S \), zijn de enige bogen die karakters uit \( \Sigma \) bevatten de bogen uit \(\NFA_1\). Bovendien: voor elke toestand \(q\) in \(\NFA_1\), gaat elk pad van deze toestand \(q\) naar de toestand \(q_f\) door \(q_{f1}\). Met andere woorden: de enige strings die in \(L_S\) zitten zijn \( \epsilon \) en \( x_1, x_2,x_3, ...\) (met \(x_i \in L_{\NFA_1} \)). Dit zijn precies die strings uit \( L_{\NFA_1}^* \).
+
+			\item \underline{De unie van \( \NFA_1 \) en \( \NFA_2 \) bepaalt \( L_{\NFA_1} \cup L_{\NFA_2} \)}:
+
+			We voeren volgende notatie in: \[ \text{NFA } U = \operatorname*{unie}(\NFA_{1},\NFA_{2}) \] Volgens de definitie van de unie van talen geldt dat \[ L_{\NFA_1} \cup L_{\NFA_2}=\{s \mid s \in L_{\NFA_1} \lor s \in L_{\NFA_2}\} \] We moeten bewijzen dat \[ s \in L_{U} \Leftrightarrow s \in L_{\NFA_1} \cup L_{\NFA_2} \]
+			\begin{enumerate}
+				\item[\( \Rightarrow \)] Neem aan dat \( s \in L_U \). Als we deze string parsen met de machine C, maken we in het begin de keuze om vanuit \( q_s \) de \epsilonboog te nemen naar ofwel \( q_{s1} \), ofwel \( q_{s2} \). We veronderstellen het eerste geval, namelijk de keuze voor de starttoestand van \(\NFA_1\), het andere geval verloopt analoog. Bij het parsen van de \( s \) belanden we uiteindelijk in \( q_f \), want dit is een aanvaarde string. Het bereiken van die toestand kan enkel met een \epsilonboog vanuit \( q_{f1} \) of \( q_{f2} \). Aangezien we in het begin gekozen hebben voor \( q_{s1} \) (en dus ook voor \( \NFA_1 \)), kan dat enkel vanuit \( q_{f1} \) gebeurd zijn. Het bereiken van \(q_{f1}\)\footnote{Hiermee wordt bedoeld dat de toestand bereikt wordt zonder dat er nog symbolen overschieten in \( s \) die nog geparst moeten worden.} wil precies zeggen dat \(s \in L_{\NFA_1}\) en dus ook \( c \in L_{\NFA_1} \cup L_{\NFA_2} \). We kunnen, zoals gezegd, hetzelfde aantonen voor de keuze van \( \NFA_2 \) in het begin.
+				\item[\(\Leftarrow\)] Als de string \( s \in L_{\NFA_1} \cup L_{\NFA_2} \), dan geldt dat ofwel \( s \in L_{\NFA_1} \), ofwel \( s \in L_{\NFA_2} \). Veronderstel het eerste geval. Dan kunnen we bij het parsen van \( s \) aan de hand van de machine \( U \) de \epsilonboog naar \(q_{s1}\) nemen, waarna we de string \(s\) helemaal parsen, tot we in \(q_{f1}\) terechtkomen. Van hieruit kunnen we de \epsilonboog naar \(q_f\) nemen. We vinden dus dat \(s\) wordt aanvaard door \(U\) en dus dat \(s \in L_U\). Het andere geval (namelijk dat \(s \in L_{\NFA_2}\)) loopt nu volledig analoog.
+			\end{enumerate}
+
+		\end{itemize}
+
+		We bewijzen nu de oorspronkelijke stelling aan de hand van structurele inductie:
+
+		\begin{itemize}
+			\item \underline{Basisstap}:
+			We bewijzen dat de stelling geldt voor volgende basisgevallen:
+			\begin{itemize}
+				\item Als \( E=\varepsilon \), dan is \(L_E=\{\varepsilon\}\). Kijkend naar de constructie van de NFA voor dit basisgeval op pagina 21, zien we duidelijk dat deze NFA dezelfde taal bepaalt als \(E\) en dus geldt dat \(L_{\NFA_E}=L_E=\{\varepsilon\}\).
+				\item Als \( E=\phi \), dan is \(L_E=\emptyset\). Kijkend naar de constructie van de NFA voor dit basisgeval op pagina 21, zien we duidelijk dat deze NFA dezelfde taal bepaalt als \(E\) en dus geldt dat \(L_{\NFA_E}=L_E=\emptyset\).
+				\item Als \( E=a \in \Sigma \), dan is \(L_E=\{a\}\). Kijkend naar de constructie van de NFA voor dit basisgeval op pagina 21, zien we duidelijk dat deze NFA dezelfde taal bepaalt als \(E\) en dus geldt dat \(L_{\NFA_E}=L_E=\{a\}\).
+			\end{itemize}
+			\item \underline{Inductiestap}: neem aan dat de stelling geldt voor reguliere expressies \(E_1\) en \(E_2\): \[ L_{\NFA_{E_1}} = L_{E_1}, \quad L_{\NFA_{E_2}} = L_{E_2} \] Dan bewijzen we dat de stelling ook geldt (\( L_{\NFA_E}=L_E \)) voor de ster van \(E_1\), alsook voor de unie en concatenatie van beide RE's:
+			\begin{itemize}
+				\item \underline{Concatenatie}: De operatie wordt als volgt beschreven: \[ \NFA_{E_1E_2}=\operatorname*{concat}(\NFA_{E_1},\NFA_{E_2}) \] Uit bovenstaande hulpstelling voor de concatenatie volgt dat deze NFA de concatenatie bepaalt van de talen bepaald door \( \NFA_{E_1} \) en \( \NFA_{E_1} \). Verder gebruiken we ook de inductiehypothese: \[L_{\NFA_{E_1E_2}} \overset{\text{hulpstelling}}{=} L_{\NFA_{E_1}}L_{\NFA_{E_2}} \overset{\text{IH}}{=} L_{E_1}L_{E_2}\] Omdat volgens de definitie van \textit{de taal bepaald door een RE} geldt dat \(L_{E_1}L_{E_2}=L_{E_1E_2}\), volgt het te bewijzen nu direct: \( L_{\NFA_{E_1E_2}}=L_{E_1E_2} \)
+				\item \underline{Ster}: Het operatie wordt als volgt beschreven: \[ \NFA_{E_1^*}=\operatorname*{ster}(\NFA_{E_1}) \] Uit bovenstaande hulpstelling voor de ster volgt dat deze NFA de taal \(L_{\NFA_{E_1}}^* \overset{\text{IH}}{=} L_{E_1}^*\) bepaalt. Dat wil precies zeggen dat \(L_{\NFA_{E_1^*}}=L_{E_1}^*=L_{E_1^*}\)\footnote{Gebruik hier ook de definitie van een taal bepaald door een reguliere expressie.}, zoals bewezen moest worden.
+				\item \underline{Unie}: De operatie wordt als volgt beschreven: \[ \NFA_{E_1|E_2}=\operatorname*{unie}(\NFA_{E_1},\NFA_{E_2}) \] Uit bovenstaande hulpstelling voor de unie volgt dat deze NFA de taal \[L_{\NFA_{E_1}}\cup L_{\NFA_{E_2}} \overset{\text{IH}}{=} L_{E_1} \cup L_{E_2}\] bepaalt. Dat wil precies zeggen dat \(L_{\NFA_{E_1|E_2}}=L_{E_1} \cup L_{E_2}=L_{E_1 | E_2}\)\footnote{Idem}, zoals bewezen moest worden.
+			\end{itemize}
+		\end{itemize}
+
+	\end{proof}
+
+	\subsection*{Pagina 26}
+
+	\begin{stelling}
+		De omzetting van NFA naar GNFA wijzigt de verzameling aanvaarde strings niet.
+	\end{stelling}
+
+	\begin{proof}
+		\hfill
+		\begin{itemize}
+			\item Stel dat NFA dezelfde taal $L_E$ bepaalt als een reguliere expressie $E$. Een nieuwe begintoestand toevoegen met een $\epsilon$ boog naar de oude staat gelijk aan de expressie $\epsilon E$, dewelke gelijk is aan $E$.
+			\item Stel dat NFA dezelfde taal $L_E$ bepaalt als een reguliere expressie $E$. Een nieuwe eindtoestand toevoegen met een $\epsilon$ bogen van de oude toestanden naar de nieuwe, staat gelijk aan de expressie $E\epsilon$, dewelke gelijk is aan $E$.
+			\item Het toevoegen van de extra bogen om de GNFA te vervolledigen wijzigt de verzameling aanvaarde talen niet. Deze $\phi$-bogen kunnen niet gevolgd worden en dus kunnen er geen toestanden bereikt worden die voordien niet bereikt konden worden.
+			\item Indien we twee parallelle gerichte bogen met labels $a_1 \in \Sigma$ en $a_2 \in \Sigma$ samennemen als een unie van die labels, dan verandert de verzameling aanvaarde strings niet. We kunnen immers de reguliere expressie $E_1|E_2$ met $E_1 = a_1$ en $E_2 = a_2$ omzetten naar een NFA met twee toestanden waarvan tussen er twee parallelle gerichte bogen lopen die de labels $a_1$ en $a_2$ hebben.
+		\end{itemize}
+	\end{proof}
+
+	\subsection*{Pagina 28, bewijs DFA}
+
+	\begin{stelling}
+		\( (Q',\Sigma, \delta', q_s',F') \) is een DFA equivalent met de NFA \((Q,\Sigma,\delta,q_s,F)\)
+	\end{stelling}
+
+	\begin{proof}
+		Uit de constructie op pagina 27-28 volgt duidelijk dat de geconstrueerde automaat een \underline{D}FA is:
+		\begin{itemize}
+			\item Er zijn geen \( \varepsilon \)-bogen, want \( \delta'(q',a) \) is enkel gedefinieerd voor \( a \in \Sigma \) (en \( q'\in Q' \)), m.a.w. \( a\neq \varepsilon \)
+			\item De functie \( \delta':Q' \times \Sigma \to Q' \) is een totale functie: ze is overal goed gedefinieerd.
+		\end{itemize}
+
+		Wat betreft de equivalentie, moeten we verifiëren dat \[ \forall w \in \Sigma^*: \quad q_s' \overset{w}{\rightsquigarrow} F'  \text{ (in de DFA)} \quad \Longleftrightarrow \quad q_s \overset{w}{\rightsquigarrow} F \text{ (in de NFA)}\]
+
+		We bewijzen beide richtingen.
+		\begin{enumerate}
+			\item[\( \Rightarrow \)] Deze implicatie volgt uit iets algemeners dat we nu zullen bewijzen: zij \(S\) een deelverzameling van \( Q \) gesloten onder \epsilonbogen. Dan geldt \[ \forall w \in \Sigma^*: \quad q_{s}' \overset{w}{\rightsquigarrow} S \text{ (in de DFA)} \quad \Longrightarrow \quad \forall p \in S: q_s \overset{w}{\rightsquigarrow} p \text{ (in de NFA)}  \] Dit bewijzen we per inductie op de lengte van \( w \).
+			\begin{itemize}
+				\item \underline{Basisstap}: Als \(\abs{w}=0\), dan geldt dat \(w = \epsilon = \) de lege string. Neem aan dat \(q_{s}' \overset{w}{\rightsquigarrow} S\). Dan is \(S=q_s'=\{q_s, \text{toestanden bereikbaar vanuit }q_s \text{ met }\epsilon\}\). We zien nu duidelijk in dat de implicatie geldt en dat elke toestand in \(S\) bereikbaar is vanuit \(q_s\) met \(w\).
+				\item \underline{Inductiehypothese}: veronderstel dat de stelling geldt voor alle strings \(w\) van hoogstens lengte \(\abs{w}=n\).
+				\item \underline{Inductiestap}: Beschouw een string \(w' = wa \) (met \(a \in \Sigma\)) van lengte \(n+1\).
+
+				We willen aantonen dat als \(q_{s}' \overset{wa}{\rightsquigarrow} S\), dan geldt \(\forall p \in S: q_s \overset{wa}{\rightsquigarrow} p\). Zij \(S_2\) de toestand in de DFA zodat \(q_{s}' \overset{w}{\rightsquigarrow} S_2\). Wegens de inductiehypothese geldt nu \[ \forall p\in S_2: \quad q_s \overset{w}{\rightsquigarrow} p\]We kunnen in in de DFA in \(S\) geraken door een pijl met label \(a\) te volgen vanuit toestand \(S_2\). Dit betekent precies dat \(S\) de verzameling is van alle toestanden die we in de NFA kunnen bereiken door vanuit een toestand in \(S_2\) een pijl te nemen met een label \(a\) erop, gevolgd door eventueel een aantal \epsilonbogen. En dus geldt voor iedere \(p \in S\) dat \(q_s \pijl{w'} q \), hetgeen we wilden bewijzen.
+			\end{itemize}
+
+			Nu volgt de rechterimplicatie \[q_s'\pijl{w}F' \quad \Longrightarrow \quad \exists S \in F': q_s' \pijl{w} S \overset{\text{hierboven}}{\Rightarrow} \forall p \in S: q_s \pijl{w} p \quad \overset{S \in F'}{\Longrightarrow} \quad \exists p \in S : p \in F\] Voor die laatste \(p\) geldt dus ook dat \(q_s \pijl{w} p\) en dus \(q_s \pijl{w} F\)
+
+			\item[\(\Leftarrow\)] Als \(q_s \pijl{w} F\), dan bestaat er een \(q \in F\) zodat \(q_s \pijl{w} q\). Er bestaat in de NFA dus een accepterend pad \(q_s, q_1, q_2, ..., q_n, q\). Voor een toestand \( q \) in de NFA, zij \(S(q)\) de grootste verzameling die \(q\) bevat en gesloten is onder \epsilonbogen. Nu is \(S(q_s), S(q_1), S(q_2), ..., S(q_n), S(q)\) een accepterend pad in de DFA. En dus \(q_{s}' \pijl{w} S(q)\) en dus \(q_{s}' \pijl{w} F'\).
+		\end{enumerate}
+
+		%		Nu geldt dat de DFA een string \( w \) aanvaardt a.s.a. voor de unieke toestand \( q' \) zodat \( q_s'\overset{w}{\rightsquigarrow} q' \) geldt dat: \[q' \cap F \neq \emptyset \quad \Leftrightarrow \quad q_w'\cap F \neq \emptyset \quad \Leftrightarrow \quad \text{de NFA aanvaardt } w\]
+	\end{proof}
+
+	\subsection*{Pagina 34, bewijs \( \DFA_{\text{min}} \)}
+
+	\begin{stelling}
+		\(\DFA_{\text{min}}\) is een DFA, equivalent met \(\DFA\), en alle toestanden zijn f-verschillend.
+	\end{stelling}
+
+	\begin{proof}
+		\(\DFA_{\text{min}}\) is een DFA:
+		\begin{itemize}
+			\item Er zijn geen \(\varepsilon\)-bogen
+			\item 2 verschillende bogen met hetzelfde symbool vanuit \(p\) en \(q\)  versmelten wanneer de twee toestanden zelf versmelten door f-gelijkheid:
+			stel namelijk dat \(p\) en \(q\) f-gelijk zijn. Dan zijn ook \( p'=\delta(p,a) \) en \( q'=\delta(q,a) \) f-gelijk. We bewijzen dat.
+
+			De f-strings van \(p\) en \(q\) zijn gelijk, dus ook hun f-strings van de vorm \(as\). De f-strings van \(p'\) zijn de strings \( s \) zodat \( as \) een f-string is van \( p \). Hetzelfde geldt voor \( q' \). Bijgevolg hebben \( p' \) en \( q' \) dezelfde f-strings en zijn ze f-gelijk.
+		\end{itemize}
+
+		De equivalentie van \(\DFA\) en \(\DFA_{\text{min}}\) bewijzen we door per inductie aan te tonen dat \[ w \text{ is een f-string van } Q_i \text{ (in } \DFA_{\text{min}} \text{)} \quad \Longleftrightarrow \quad w \text{ is een f-string van alle } q\in Q_i \text{ (in } \DFA_{\text{origineel}} \text{)}\]
+
+		\begin{itemize}
+			\item \underline{Basisstap}: als de lengte van de string \(w\) gelijk is aan 0, geldt dat \(w=\epsilon\). Nu geldt dat
+			\begin{equation*}
+				\begin{split}
+					\epsilon \text{ is een f-string van } Q_i &\Leftrightarrow Q_i \in \tilde{F} \\
+					&\Leftrightarrow Q_i \subseteq F \\
+					&\Leftrightarrow q \in F \qquad (\forall q \in Q_i)\\
+					&\Leftrightarrow \epsilon \text{ is een f-string van alle } q \in Q_i
+				\end{split}
+			\end{equation*}
+			\item \underline{Inductiehypothese}: stel dat \(w \text{ is een f-string van } Q_i \Leftrightarrow w \text{ is een f-string van alle } q\in Q_i \) (met \(\abs{w}=n\)).
+			\item \underline{Inductiestap}: beschouw de string \(w'=aw\). We tonen aan dat de stelling ook geldt voor deze string van lengte \(\abs{w'}=n+1\), m.a.w. we tonen aan dat \[w'=aw \text{ is een f-string van } Q_i \Leftrightarrow w'=aw \text{ is een f-string van alle } q\in Q_i \]. Er geldt dat
+			\begin{align*}
+				aw \text{ is een f-string van } Q_i &\Leftrightarrow \tilde{\delta}^*(Q_i,aw) \in \tilde{F} \\
+				&\Leftrightarrow \tilde{\delta}^*\left(\tilde{\delta}(Q_i,a),w\right) \in \tilde{F} && \text{(eigenschap op p.30)} \\
+				&\Leftrightarrow w \text{ is een f-string van } \tilde{\delta}(Q_i,a)\\
+				&\Leftrightarrow w \text{ is een f-string van alle } q \in \tilde{\delta}(Q_i,a) && \text{(inductiehypothese)} \\
+				&\Leftrightarrow aw \text{ is een f-string van alle } q \in Q_i
+			\end{align*}
+		\end{itemize}
+	\end{proof}
+
+
+\end{document}
+
+
+
