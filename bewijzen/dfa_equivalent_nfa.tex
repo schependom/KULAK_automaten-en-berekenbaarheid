@@ -11,8 +11,8 @@
 		\item Er zijn geen \( \varepsilon \)-bogen, want \( \delta'(S,a) \) is enkel gedefinieerd voor \( a \in \Sigma \) (en \( S\in Q' \)), m.a.w. \( a\neq \varepsilon \)
 		\item De functie \( \delta':Q' \times \Sigma \to Q' \) is een totale functie: ze is overal goed gedefinieerd.
 		\begin{itemize}
-			\item \(\delta'(S,a)\) is gesloten onder \epsilonbogen. Stel immers dat \(p \in \delta'(S,a)\). Dit wil zeggen dat \(\exists p' \in S : p'\pijl{a}p\). Stel nu dat er voor een \(q\in Q\) geldt dat \(p\overset{\epsilon}{\rightarrow}q\). Dan is duidelijk dat ook \(p'\pijl{a}q\), want \(a\) is een \(\epsilon\)-compressie van \(a\epsilon\). En dus geldt ook dat \(q \in \delta'(S,a)\). Dit wil precies zeggen dat \(\delta'(S,a)\) gesloten is onder \epsilonbogen.
-			\item Stel dat \(S_w=\{q \mid q_s \pijl{w} q\}\). \(S_{wa}\) is de verzameling toestanden die we bereiken door uit toestanden \(p \in S_w\) één \(a\)-boog te volgen. Het is dan duidelijk dat  \(\delta'(S_w,a)=S_{wa}\).
+			\item \(\delta'(S,a)\) is gesloten onder \epsilonbogen. Stel immers dat \(p \in \delta'(S,a)\). Dit wil zeggen dat \(\exists p_{-1} \in S : p_{-1}\pijl{a}p\). Stel nu dat er voor een \(q\in Q\) geldt dat \(p\rpijl{\epsilon}q_1\rpijl{\epsilon}...\rpijl{\epsilon}q_n\) met \(n\in \N\) (we mogen willekeurig veel \epsilonbogens nemen). Dan is duidelijk dat ook \(p_{-1}\pijl{a}q_n\), want \(a\) is een \(\epsilon\)-compressie van \(a\epsilon^n\). En dus geldt ook dat \(q_n \in \delta'(S,a)\). Dit wil precies zeggen dat \(\delta'(S,a)\) gesloten is onder \epsilonbogen.
+			\item Stel dat \(S_w=\{q \mid q_s \pijl{w} q\}\). \(S_{wa}\) is de verzameling toestanden die we bereiken door uit toestanden \(p \in S_w\) één \(a\)-boog te volgen gevolgd door een willekeurig aantal \epsilonbogen. Het is dan duidelijk dat  \(\delta'(S_w,a)=S_{wa}\).
 		\end{itemize}
 	\end{itemize}
 
