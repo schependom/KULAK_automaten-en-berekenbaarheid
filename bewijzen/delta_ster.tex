@@ -11,7 +11,7 @@ De overgangsfunctie \[ \delta^* : Q \times \Sigma^* \to Q\] van een DFA, is een 
 
 
 \begin{stelling}
-	In een DFA geldt dat \[\delta^*(q,wa) = \delta\left(\delta^*(q,w),a\right) \text{ voor } a\in\Sigma, w\in\Sigma_{\epsilon}^*\]
+	In een DFA geldt dat \[\delta^*(q,wa) = \delta\left(\delta^*(q,w),a\right) \text{ voor } a\in\Sigma, w\in\Sigma^*\]
 \end{stelling}
 
 
@@ -32,7 +32,7 @@ De overgangsfunctie \[ \delta^* : Q \times \Sigma^* \to Q\] van een DFA, is een 
 		\item \underline{Inductiehypothese}: stel dat de stelling geldt voor strings \(w\) van hoogstens lengte \(\abs{w}=n\), m.a.w. dat voor zulke strings geldt dat \(\delta^*(q,wa) = \delta\left(\delta^*(q,w),a\right) \text{ voor } a\in\Sigma, w\in\Sigma_{\epsilon}^*\).
 		\item \underline{Inductiestap}: we bewijzen dat de stelling ook geldt voor strings van lengte \(n+1\). Zo'n string \(w'\) kunnen we schrijven als \(w'=bw\) met \(\abs{w}=n,b\in \Sigma\). Nu geldt dat
 		\begin{align*}
-			\delta^*(q,w'a) &= \delta^*(q, bwa) && w'=sw \\
+			\delta^*(q,w'a) &= \delta^*(q, bwa) && w'=bw \\
 			&= \delta^*(\delta(q,b), wa) && \text{(1)} \\
 			&= \delta(\delta^*(\delta(q,b),w), a) && \text{inductiehypothese} \\
 			&= \delta\left(\delta^*(q,bw),a\right) && (2) \text{VRNL} \\
