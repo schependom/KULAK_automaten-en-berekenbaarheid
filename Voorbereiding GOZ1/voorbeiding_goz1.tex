@@ -71,7 +71,55 @@
 
 	\maketitle
 
+	\[ \text{RegLan} \subset \text{DCFL} \subset \text{CFL} \subset \powerset[\Sigma^*] \]
 
+	\subsubsection*{Algemeenheden}
+	\begin{itemize}
+		\item Een oneindige taal is \underline{aftelbaar}, want \[L \in L_\Sigma \Leftrightarrow L \in \powerset[\Sigma^*] \Leftrightarrow L \subseteq \Sigma^* \quad \text{en} \quad \Sigma^*\text{ is aftelbaar oneindig}\]
+		\item Twee verschillende reguliere expressies kunnen dezelfde reguliere taal bepalen
+		\begin{itemize}
+			\item \(R_1=a^*\)
+			\item \(R_2=a^*|\epsilon\)
+			\item \(L_{R_1}=L_{R_2}=\{a^n \mid n\in\N\}\)
+		\end{itemize}
+		\item Equivalentie van NFA's
+		\begin{itemize}
+			\item Indien deze dezelfde taal bepalen
+			\item Bepaalt een equivalentierelatie
+			\item Elke equivalentieklasse komt overeen met één (reguliere) taal
+		\end{itemize}
+		\item Een DFA is een NFA dus de taal bepaald door een DFA is ook regulier. Maar wordt -- omgekeerd -- elke reguliere taal ook bepaald door een DFA? We weten dat elke reguliere taal bepaald wordt door een NFA, dus het volstaat om aan te tonen dat NFA's om te zetten zijn in equivalente DFA's om te bewijzen dat elke reguliere taal bepaald wordt door een DFA. Dit bewijst dan (samen met het eerste) ineens dat DFA's en NFA's equivalent zijn: ze bepalen dezelfde talen, namelijk de reguliere talen.
+		\item We kunnen makkelijk inzien dat er voor een reguliere taal een DFA \underline{bestaat} met het minimale aantal toestanden (rangschik de DFA's naar \(\abs{Q}\)), maar de \underline{constructie} van de minimale DFA is de echte vraag.
+	\end{itemize}
+
+	\subsubsection*{Talen}
+
+	\begin{itemize}
+		\item Gesloten onder uiteenlopende operaties:\\unie, doorsnede, verschil, complement, omkering, concatenatie, Kleene ster, ...
+	\end{itemize}
+
+	\subsubsection*{Reguliere talen}
+
+	\begin{itemize}
+		\item \textit{Gesloten onder / algebra voor} de operaties... \begin{itemize}
+			\item Unie
+			\item Concatenatie
+			\item Kleene ster
+			\item Complement
+		\end{itemize}
+		\item Voorbeelden van reguliere talen:
+		\begin{itemize}
+			\item \underline{\(\Sigma^*\)}\\
+			kan beschreven worden met de RegExp \((a_1|a_2|...|a_n)^*\) met \(a_i\in \Sigma, n=\abs{\Sigma}, a_i\neq a_j\) voor \(i\neq j\)
+			\item \underline{Eindige talen}\\
+			kunnen beschreven worden met een reguliere expressie die alle symbolen uit het alfabet oplijst met daartussen een |
+		\end{itemize}
+		\item RegLan \(\subset\) CFL, want
+		\begin{itemize}
+			\item RegLan \(\subseteq\) CFL: elke NFA is een speciaal type PDA (namelijk eentje zonder stack)
+			\item \(\exists\)CFL \(L\) : \(L \notin \) RegLan
+		\end{itemize}
+	\end{itemize}
 
 \end{document}
 

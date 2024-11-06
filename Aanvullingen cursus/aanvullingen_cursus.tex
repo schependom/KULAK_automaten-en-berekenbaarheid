@@ -49,8 +49,17 @@
 \usepackage{tcolorbox}
 \theoremstyle{definition}
 \newtheorem*{stelling}{Stelling}
+\newtheorem*{definitie}{Definitie}
 
 \tcolorboxenvironment{stelling}{
+	boxrule=1pt,
+	boxsep=2pt,
+	left=2pt,right=2pt,top=2pt,bottom=2pt,
+	sharp corners,
+	before skip=\topsep,
+	after skip=\topsep,
+}
+\tcolorboxenvironment{definitie}{
 	boxrule=1pt,
 	boxsep=2pt,
 	left=2pt,right=2pt,top=2pt,bottom=2pt,
@@ -95,6 +104,10 @@
 
 	\subfile{bewijzen/nfa_naar_gnfa}
 
+	\subsection*{Pagina 26}
+
+	\subfile{allerlei/acceptatiepad_gnfa}
+
 	\newpage
 	\subsection*{Pagina 28, bewijs DFA}
 
@@ -110,7 +123,7 @@
 	\subfile{bewijzen/dfa_min_equivalent_dfa}
 
 	\newpage
-	\subsection*{Pagina 43, equivalentie \mnl en DFA}
+	\subsection*{Pagina 43, equivalentie \mnl \,en DFA}
 
 	\subfile{bewijzen/dfa_mnl_equiv}
 

@@ -8,7 +8,7 @@ We bouwen hiervoor eerst een NFA \(M_1=(Q_1,\Sigma,\delta_1,q_{s1},F_1)\) die de
 \begin{itemize}
 	\item \( Q_1=Q\cup\{q_e\} \)
 	\item Overgangsfunctie: \resizebox{!}{!}{\(\begin{aligned}
-			\delta_1(q,a) &= \delta(q,a) && \forall q \in Q, \forall a \in \Sigma \\
+			\delta_1(q,a) &= \delta(q,a) && \forall q \in Q \setminus F, \forall a \in \Sigma_\epsilon \\
 			\delta_1(q,\epsilon) &= q_e && \forall q \in F
 		\end{aligned}\)}
 	\item \(q_{s1}=q_s\)
