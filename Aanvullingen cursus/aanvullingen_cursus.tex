@@ -1,0 +1,133 @@
+\documentclass[kulak]{kulakarticle}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts} % for \mathbb
+\usepackage{amsthm}
+\usepackage{tcolorbox}
+\usepackage{mathtools}
+\usepackage{siunitx}
+\usepackage{subfiles}
+
+\newcommand{\R}{\mathbb{R}} % Real numbers
+\newcommand{\C}{\mathbb{C}} % Complex numbers
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\powerset[1]}{\mathcal{P}(#1)}
+
+\newcommand{\NFA}{\text{NFA}}
+\newcommand{\DFA}{\text{DFA}}
+\newcommand{\epsilonboog}{\( \varepsilon \)-boog }
+\newcommand{\epsilonbogen}{\( \varepsilon \)-bogen}
+\newcommand{\epsilonbogens}{\( \varepsilon \)-bogen }
+\let\epsilon\varepsilon
+\newcommand{\mnl}{MN\((L)\)}
+\newcommand{\mnlm}{\text{MN}(L)}
+\DeclareMathOperator{\reach}{reach}
+\DeclareMathOperator{\opeen}{op_1}
+\DeclareMathOperator{\optwee}{op_2}
+
+\newcommand{\abs}[1]{\lvert #1 \rvert}
+\newcommand{\pijl}[1]{\overset{#1}{\rightsquigarrow}}
+\newcommand{\rpijl}[1]{\overset{#1}{\rightarrow}}
+
+\newcommand{\rood[1]}{\color{red}#1\color{black}}
+
+\sisetup{output-decimal-marker={,}}
+\sisetup{separate-uncertainty=true}		% Dit is voor de plus-minus
+\sisetup{per-mode=fraction}
+
+\DeclareSIUnit\biti{bit_i}
+\DeclareSIUnit\combinatie{combinatie}
+
+\usepackage[dutch]{babel}
+\usepackage{hyperref}
+
+\setlength{\parindent}{0pt}
+
+\usepackage{amsthm}
+\usepackage{tcolorbox}
+\theoremstyle{definition}
+\newtheorem*{stelling}{Stelling}
+
+\tcolorboxenvironment{stelling}{
+	boxrule=1pt,
+	boxsep=2pt,
+	left=2pt,right=2pt,top=2pt,bottom=2pt,
+	sharp corners,
+	before skip=\topsep,
+	after skip=\topsep,
+}
+
+\title{Aanvullingen cursus A\&B}
+\author{Vincent Van Schependom}
+\date{Academiejaar 2024-2025}
+\address{
+	\textbf{Groep Wetenschap \& Technologie Kulak} \\
+	Bachelor Informatica \\
+	Automaten \& Berekenbaarheid}
+
+\begin{document}
+
+	\maketitle
+
+	\setcounter{section}{1}
+
+	\section{Talen en Automaten}
+
+	\subsection*{Pagina 11, bewijs subalgebra:}
+
+	\subfile{bewijzen/subalgebra}
+
+	\subsection*{Pagina 15, zelf doen 4:}
+
+	\subfile{allerlei/constructie_omgekeerde_taal}
+
+	\subsection*{Pagina 18-20, de algebra van NFA's}
+
+	\subfile{allerlei/constructie_concat_ster}
+
+	\subsection*{Pagina 21, bewijs structurele inductie}
+
+	\subfile{bewijzen/constructie_nfa_re_bewaart_taal}
+
+	\subsection*{Pagina 26}
+
+	\subfile{bewijzen/nfa_naar_gnfa}
+
+	\newpage
+	\subsection*{Pagina 28, bewijs DFA}
+
+	\subfile{bewijzen/dfa_equivalent_nfa}
+
+	\subsection*{Pagina 30}
+
+	\subfile{bewijzen/delta_ster.tex}
+
+	\newpage
+	\subsection*{Pagina 34, bewijs \( \DFA_{\text{min}} \)}
+
+	\subfile{bewijzen/dfa_min_equivalent_dfa}
+
+	\newpage
+	\subsection*{Pagina 43, equivalentie \mnl en DFA}
+
+	\subfile{bewijzen/dfa_mnl_equiv}
+
+	\subsection*{Pagina 74}
+
+	\subfile{bewijzen/cfg_naar_pda}
+
+	\subsection*{Pagina 67}
+
+	\subfile{bewijzen/cnvorm_afleidingslengte}
+
+	\newpage
+	\subsection*{Pagina 80}
+
+	\subfile{bewijzen/ss_niet_contextvrij}
+
+\end{document}
+
+
+
