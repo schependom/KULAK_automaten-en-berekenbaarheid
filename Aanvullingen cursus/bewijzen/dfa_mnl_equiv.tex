@@ -51,7 +51,7 @@ We kunnen de stelling ook anders formuleren. Hiervoor beschouwen we twee operati
 			\item  \underline{\(Q\) en \(F\) hebben slechts een eindig aantal toestanden}, omdat een \mnl-relatie geassocieerd is met een eindige partitie. Er zijn dus slechts een eindig aantal equivalentieklassen.
 			\item \underline{De overgangsfunctie \(\delta\) is goed gedefinieerd}.
 
-			Als \(y,z\in\Sigma^*\) tot dezelfde equivalentieklasse \(x_\sim\) behoren, dan behoren ze tot eenzelfde toestand \(q\in Q\). Na het volgen van een boog met een symbool \(a \in \Sigma\) vanuit deze toestanden, moeten we in de DFA voor beide strings in een eenzelfde nieuwe toestand \(q'\) terechtkomen, anders zouden er meerdere bogen met dat symbool \(a\) bestaan.
+			Als \(y,z\in\Sigma^*\) tot dezelfde equivalentieklasse \(x_\sim\) behoren, dan behoren ze tot eenzelfde toestand \(q\in Q\). Na het volgen van een boog met een symbool \(a \in \Sigma\) vanuit deze toestand, moeten we in de DFA voor beide strings in een eenzelfde nieuwe toestand \(q'\) terechtkomen, anders zouden er meerdere bogen met dat symbool \(a\) bestaan.
 
 			We bewijzen dat we effectief in die toestand \(q'\) terechtkomen voor beide strings. Omdat volgens de \mnl-relatie op de strings in \(\Sigma^*\) de rechtscongruentie \(y \sim z \Rightarrow ya \sim za\) geldt, behoren de strings \(ya\) en \(za\) tot dezelfde equivalentieklasse \((xa)_\sim\). De definitie \(\delta(x_\sim,a)=(xa)_\sim\) is dus goed.
 		\end{itemize}
@@ -59,7 +59,7 @@ We kunnen de stelling ook anders formuleren. Hiervoor beschouwen we twee operati
 		Tot slot bewijzen we nog dat de DFA de gegeven taal \(L \in L_\Sigma\) effectief bepaalt, of nog dat \(L_\DFA = L\): \[x \in L_\DFA \quad \overset{\Delta}{=} \quad \delta^*(\epsilon_\sim,x)\in F \Longleftrightarrow x_\sim \in F \quad \overset{\Delta}{=} \quad x\in L \] We bewijzen de overgang door per inductie op de lengte van \(x\) aan te tonen dat \[\delta^*(\epsilon_\sim,x)=x_\sim\]
 		\begin{itemize}
 			\item \underline{Basisstap:} als \(\abs{x}=0\), is \(x=\epsilon\) en geldt per definitie van \(\delta^*\) dat \(\delta^*(\epsilon_\sim,x)=\epsilon_\sim\)
-			\item \underline{Inductiehypothese:} stel dat de stelling geldt voor strings \(x\) van lengte \(\abs{x}=n\)
+			\item \underline{Inductiehypothese:} stel dat de stelling geldt voor strings \(x\) van lengte hoogstens \(\abs{x}=n\)
 			\item \underline{Inductiestap:} we bewijzen dat de stelling ook geldt voor strings van lengte \(n+1\). Zo'n string \(x'\) kunnen we schrijven als \(x'=xa\) met \(\abs{x}=n,a\in \Sigma\). Nu geldt dat
 			\begin{align*}
 				\delta^*(\epsilon_\sim,x')&=\delta^*(\epsilon_\sim,xa) && x'=xa\\
