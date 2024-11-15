@@ -126,10 +126,11 @@
 			\item \(\exists\)CFL \(L\) : \(L \notin \) RegLan, bijvoorbeeld \(L=\{0^n1^n \mid n\in\N\}\)
 		\end{itemize}
 		\item Er zijn \underline{oneinig veel reguliere talen} \begin{itemize}
-			\item Er zijn oneindig veel strings over \(\Sigma \rightarrow\) \(\Sigma^*\) is een oneindige verzameling
+			\item Er zijn oneindig veel strings over \(\Sigma \Rightarrow\) \(\Sigma^*\) is een oneindige verzameling
 			\item Elke \underline{eindige} deelverzameling van \(\Sigma^*\) is regulier
 			\item \(\uparrow\) want we kunnen zo'n deelverzameling = taal \(L=\{s_1,...,s_n\}\) beschrijven met een reguliere expressie \((s_1|...|s_n)\).
 		\end{itemize}
+		\item \(L \notin \text{RegLan} \Rightarrow \overline{L} \notin \text{RegLan} \)
 	\end{itemize}
 
 		\newpage
@@ -190,15 +191,50 @@
 				\item Dan is ook het complement DCFL
 				\item Bekom een contradictie en besluit dat de unie niet deterministisch kan zijn
 			\end{itemize}
-			\item Neem een \underline{\(L \in\) CFL waarvoor \(\bar{L} \notin\) CFL}. \begin{itemize}
+			\item Neem een \underline{\(L \notin\) CFL waarvoor \(\bar{L} \in\) CFL}. \begin{itemize}
 				\item Als \(\bar{L} \in\) DCFL zou gelden, dan geldt ook \(\bar{\bar{L}}=L\in\) DCFL
 				\item Maar L is niet eens CFL!
 				\item Dus is \(\bar{L} \notin\) DCFL
 			\end{itemize}
 		\end{itemize}
 		\item De doorsnede van een reguliere taal met een contextvrije taal is \underline{contextvrij}. Maak daarvoor een generische product-\underline{PDA} aan de hand van de DFA die de reguliere taal bepaalt en de PDA die de contextvrije taal bepaalt.
-		\item De doorsnede van een DCFL en een reguliere taal is een DCFL: maak een product-DPDA tussen een DPDA en DFA.
+		\item De doorsnede van een DCFL en een reguliere taal is een DCFL: maak een product-\underline{DPDA} tussen een DPDA en DFA.
+		\item \( \{a^nb^nc^n \mid n \in \N\} \notin \) CFL
 	\end{itemize}
+
+	Het symmetrisch verschil van twee talen \(L_1\) en \(L_2\) is \(
+	L_1 \triangle \L_2
+	\).\\De DFA die deze taal bepaalt heeft als verzameling eindtoestanden \[
+	F = (F_1 \times Q_2) \cup (Q_1 \times F_2) \setminus (F_1 \times F_2) \]
+
+	\subsubsection*{Pompend Lemma Reguliere Talen}
+
+	We bewijzen dit aan de hand van het pompend lemma voor reguliere talen.
+
+	Stel dat er een pomplengte \(d\) bestaat zodanig dat elke string \(s \in L\) met lengte \(\abs{s}\geq d\) kan opgedeeld worden in 3 stukken \(x,y,z \in \Sigma^*\) zodanig dat \(s=xyz\) en zodat\begin{enumerate}
+		\item \(\forall i \geq 0 : xy^iz \in L \)
+		\item \(\abs{y}>0\)
+		\item \(\abs{xy}\leq d\)
+	\end{enumerate}
+
+	Beschouw zo'n string \(s=...\) met \(s \geq d\). Beschouw een willekeurige opdeling \(s=xyz\) met \(\abs{y}>0\) en \(\abs{xy}\leq d\). Dan ...
+
+	Indien men te string \(t=...\) (kies een \(i\) zodat \(t=xy^iz\)), dan behoort \(t\) niet tot de taal en de taal is dus niet regulier.
+
+	\subsubsection*{Pompend Lemma Contextvrije Talen}
+
+	We bewijzen dit aan de hand van het pompend lemma voor contextvrije talen.
+
+	Stel dat er een pomplengte \(p\) bestaat zodanig dat elke string \(s \in L\) met lengte \(\abs{s}>p\) kan opgedeeld worden in 5 stukken \(u,v,x,y,z \in \Sigma^*\) zodanig dat \(s=uvxyz\) en zodat\begin{enumerate}
+		\item \(\forall i \geq 0 : uv^ixy^iz \in L \)
+		\item \(\abs{vy}>0\)
+		\item \(\abs{vxy}\leq p\)
+	\end{enumerate}
+
+	Neem zo'n string \(s\) die (strikt) langer is dan \(p\), namelijk \(s=...\)
+	Beschouw een willekeurige opdeling \(s=uvxyz\) met \(\abs{vy}>0\) en \(\abs{vxy}\leq p\). Dan ...
+
+	Indien men te string \(t=...\) (kies een \(i\) zodat \(t=uv^ixy^iz\)), dan behoort \(t\) niet tot de taal en de taal is dus niet contextvrij.
 
 \end{document}
 

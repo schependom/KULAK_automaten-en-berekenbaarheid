@@ -69,9 +69,9 @@
 	after skip=\topsep,
 }
 
-\title{Aanvullingen cursus A\&B}
-\author{Vincent Van Schependom}
-\date{Academiejaar 2024-2025}
+\title{Eerste gequoteerde oefenzitting}
+\author{Automaten \& Berekenbaarheid}
+\date{15 november 2024}
 \address{
 	\textbf{Groep Wetenschap \& Technologie Kulak} \\
 	Bachelor Informatica \\
@@ -81,73 +81,41 @@
 
 	\maketitle
 
-	\setcounter{section}{1}
+	\section*{Vraag 1}
 
-	\section{Talen en Automaten}
+	Beschouw de taal \( L = \{0^n1^m2^{n+m} \mid n,m \in \N \} \) over het alfabet \(\Sigma=\{0,1,2\}\).
+	\begin{itemize}
+		\item Is \(L\) regulier? Zo ja, geef dan een reguliere expressie \(E\) zodat \(L_E=L\). Zo niet, bewijs.
+		\item Is \(L\) context-vrij? Zo ja, geef dan een context-vrije grammatica \(G\) zodat \(L_G=L\). Zo niet, bewijs.
+	\end{itemize}
 
-	\subsection*{Pagina 11, bewijs subalgebra:}
+	\section*{Vraag 2}
 
-	\subfile{bewijzen/subalgebra}
+	Voor een string \(s=s_1s_2\cdots s_n\) definiëren we VoegABToe\((s)\). Deze functie zal na elke letter in \(s\) afwisselend een \(a\) en een \(b\) zetten. Hieronder een aantal voorbeelden: \begin{align*}
+		\text{VoegABToe}(\epsilon) &= \epsilon \\
+		\text{VoegABToe}(a) &= aa \\
+		\text{VoegABToe}(ccc) &= cacbca \\
+		\text{VoegABToe}(appels) &= aapbpaeblasb
+	\end{align*}
 
-	\subsection*{Pagina 15, zelf doen 4:}
+	Bewijs dat voor alle reguliere talen \(L\) geldt dat \[\text{ABTaal}(L) = \{ \text{voegABToe}(s) \mid s \in L \}\] ook regulier is.
 
-	\subfile{allerlei/constructie_omgekeerde_taal}
+	\section*{Vraag 3}
 
-	\subsection*{Pagina 18-20, de algebra van NFA's}
+	Geef een context-vrije grammatica voor onderstaande talen:
+	\begin{itemize}
+		\item \(L_1 = \text{ABTaal}(\Sigma^*)\) met \(\Sigma = \{a,b\}\)
+		\item \(L_2 = \{y \in \Sigma^* \mid \text{de lengte van $y$ is deelbaar door 2, door 3 of door beiden}\}\)
+		\item \(L_3 = \{y \in \Sigma^* \mid \text{$aba$ is geen substring van } y \}\)
+	\end{itemize}
 
-	\subfile{allerlei/constructie_concat_ster}
+	\section*{Vraag 4}
 
-	\subsection*{Pagina 21, bewijs structurele inductie}
-
-	\subfile{bewijzen/constructie_nfa_re_bewaart_taal}
-
-	\subsection*{Pagina 26}
-
-	\subfile{bewijzen/nfa_naar_gnfa}
-
-	\subsection*{Pagina 26}
-
-	\subfile{allerlei/acceptatiepad_gnfa}
-
-	\newpage
-	\subsection*{Pagina 28, bewijs DFA}
-
-	\subfile{bewijzen/dfa_equivalent_nfa}
-
-	\subsection*{Pagina 30}
-
-	\subfile{bewijzen/delta_ster.tex}
-
-	\newpage
-	\subsection*{Pagina 34, bewijs \( \DFA_{\text{min}} \)}
-
-	\subfile{bewijzen/dfa_min_equivalent_dfa}
-
-	\newpage
-	\subsection*{Pagina 43, equivalentie \mnl \,en DFA}
-
-	\subfile{bewijzen/dfa_mnl_equiv}
-
-	\subsection*{Pagina 74}
-
-	\subfile{bewijzen/cfg_naar_pda}
-
-	\subsection*{Pagina 67}
-
-	\subfile{bewijzen/cnvorm_afleidingslengte}
-
-	\newpage
-	\subsection*{Pagina 80}
-
-	\subfile{bewijzen/ss_niet_contextvrij}
-
-	\newpage
-
-	\section{Talen \& Berekenbaarheid}
-
-	\subsection*{p118: stelling van Rice toegepast}
-
-	\subfile{bewijzen/a_tm_onbeslisbaar_rice}
+	Beschouw het alfabet \(\Sigma = \{a,b,c\}\). Voor elk symbool \(\sigma \in \Sigma\) en elke string \(s\in\Sigma^*\) beschouwen we de functie \(n_\sigma(s)\) die het aantal voorkomens van \(\sigma\) in de string \(s\) telt: \begin{align*}
+		n_a(s) &= \text{aantal voorkomens van $a$ in $s$}\\
+		n_b(s) &= \text{aantal voorkomens van $b$ in $s$}\\
+		n_c(s) &= \text{aantal voorkomens van $c$ in $s$}
+	\end{align*} Bewijs dat de volgende taal over \(\Sigma\) niet context-vrij is: \[L = \{s\in \Sigma^* \mid n_a(s) < n_b(s) \text{ en } n_b(s) < n_c(s)\}\]
 
 \end{document}
 
