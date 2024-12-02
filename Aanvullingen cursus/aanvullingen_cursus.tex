@@ -1,5 +1,7 @@
 \documentclass[kulak]{kulakarticle}
 
+\DeclareUnicodeCharacter{2212}{I~AM~HERE!!!!}
+
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsfonts} % for \mathbb
@@ -8,6 +10,8 @@
 \usepackage{mathtools}
 \usepackage{siunitx}
 \usepackage{subfiles}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 
 \newcommand{\R}{\mathbb{R}} % Real numbers
 \newcommand{\C}{\mathbb{C}} % Complex numbers
@@ -17,6 +21,7 @@
 
 \newcommand{\NFA}{\text{NFA}}
 \newcommand{\DFA}{\text{DFA}}
+\newcommand{\CFG}{\text{CFG}}
 \newcommand{\epsilonboog}{\( \varepsilon \)-boog }
 \newcommand{\epsilonbogen}{\( \varepsilon \)-bogen}
 \newcommand{\epsilonbogens}{\( \varepsilon \)-bogen }
@@ -26,6 +31,10 @@
 \DeclareMathOperator{\reach}{reach}
 \DeclareMathOperator{\opeen}{op_1}
 \DeclareMathOperator{\optwee}{op_2}
+\DeclareMathOperator{\prog}{prog}
+\DeclareMathOperator{\pr}{Pr}
+\DeclareMathOperator{\cn}{Cn}
+\DeclareMathOperator{\mn}{Mn}
 
 \newcommand{\abs}[1]{\lvert #1 \rvert}
 \newcommand{\enc}[1]{\langle #1 \rangle}
@@ -145,9 +154,208 @@
 
 	\section{Talen \& Berekenbaarheid}
 
-	\subsection*{p118: stelling van Rice toegepast}
+	\subsection{Beslisbaarheid/herkenbaarheid}
 
-	\subfile{bewijzen/a_tm_onbeslisbaar_rice}
+	\begin{stelling}
+		\(\overline{EQ_\CFG}\) is herkenbaar.
+	\end{stelling}
+
+	\begin{proof}
+		Gegeven twee contextvrije grammatica's \(G_1\) en \(G_2\). We bouwen een herkenner \(H\) voor \(\overline{EQ_\CFG}\). Bij input \(\enc{G_1,G_2}\) doet \(H\) het volgende: converteer \(G_1\) en \(G_2\) eerst naar hun Chomsky Normaal Vorm. Genereer daarna alle mogelijke strings met een derivatielengte 1: dat zijn er eindig veel. Indien er een string is die niet door beide CFG's wordt afgeleid, reject. Doe nu hetzelfde voor alle strings met derivatie lengte \(2, 3, 4, ...\). Indien geldt dat \(L_{G_1} \neq L_{G_2}\), zal \(H\) inderdaad stoppen.
+	\end{proof}
+
+	\begin{stelling}
+		\(EQ_\CFG\) is niet herkenbaar.
+	\end{stelling}
+
+	\begin{proof}
+		Dit volgt uit de vorige stelling enerzijds en uit het feit dat \(EQ_\CFG\) niet beslisbaar is anderzijds.
+	\end{proof}
+
+	\begin{stelling}
+		\(\text{ALL}_\text{RegExp}\) is beslisbaar.
+	\end{stelling}
+
+	\begin{proof}
+		\rood[Zie vraag in mijn mail.]
+	\end{proof}
+
+	\subsection{Veel-een reductie}
+
+	\begin{stelling}
+		Stel dat \(L_1 \leq_m L_2\), dus m.a.w. \[ \exists \text{ Turing-berekenbare, totale } f : \Sigma_1^*\to\Sigma_2^* \text{ zodat } f(L_1) \subseteq L_2 \text{ en } f(\overline{L_1}) \subseteq \overline{L_2} \] dan geldt dat \(s\in L_1 \Leftrightarrow f(s)\in L_2\)
+	\end{stelling}
+
+	\begin{proof}
+		\begin{align}
+			f(L_1) \subseteq L_2                       & \Rightarrow (x \in L_1 \Rightarrow f(x) \in L_2) \label{rechterimpl} \\
+			f(\overline{L_1}) \subseteq \overline{L_2} & \Rightarrow (x \in \overline{L_1} \Rightarrow f(x) \in \overline{L_2})\nonumber \\
+														& \Rightarrow (x \notin L_1 \Rightarrow f(x) \notin L_2)\nonumber \\
+														& \Rightarrow (f(x) \in L_2 \Rightarrow x \in L_2) \label{linkerimpl}
+		\end{align}
+		Uit \eqref{rechterimpl} en \eqref{linkerimpl} volgt de equivalentie \((s\in L_1 \Leftrightarrow f(s)\in L_2)\).
+	\end{proof}
+
+	\begin{stelling}
+		Als \(A \leq_m B\), dan ook \(\overline{A} \leq_m \overline{B}\).
+	\end{stelling}
+
+	\begin{proof}
+		Uit voorgaand bewijs volgt dat \(A \leq_m B \Leftrightarrow (s\in A \Leftrightarrow f(s)\in B)\) met \( f \) een Turing-berekenbare, totale functie \(\Sigma_A^*\to\Sigma_B^*\). Nu geldt dat \begin{align*}
+			A \leq_m B & \Leftrightarrow (s\in A \Leftrightarrow f(s)\in B) \\
+			& \Leftrightarrow (s\notin \overline{A} \Leftrightarrow f(s)\notin \overline{B}) && \text{definitie complement} \\
+			& \Leftrightarrow (s\in \overline{A} \Leftrightarrow f(s)\in \overline{B}) && \text{negatie } (\neg) \\
+			& \Leftrightarrow \overline{A} \leq_m \overline{B}.
+		\end{align*}
+		Dit bewijst de stelling.
+	\end{proof}
+
+	\begin{stelling}
+		\(E_\text{TM}\) is niet beslisbaar.
+	\end{stelling}
+
+	\begin{proof}
+		Uit het bewijs op pagina 109 van de cursus werd \(\overline{A_\text{TM}}\) many-to-one gereduceerd tot \(E_\text{TM}\), dus \(E_\text{TM} \leq_m \overline{A_\text{TM}}\). Omdat \(\overline{A_\text{TM}}\) niet beslisbaar is, is \(E_\text{TM}\) dat ook niet.
+	\end{proof}
+
+	\begin{stelling}
+		\(E_\text{TM}\) is niet herkenbaar.
+	\end{stelling}
+
+	\begin{proof}
+		In oefenzitting 7 werd bewezen dat \(\overline{E_\text{TM}}\) niet herkenbaar is. \(E_\text{TM}\) kan dus niet herkenbaar zijn, want als een taal zowel herkenbaar als co-herkenbaar is, is die taal beslisbaar hierboven bewezen we reeds dat \(E_\text{TM}\) niet beslisbaar is.
+	\end{proof}
+
+	\subsection{Orakelmachines}
+
+	\begin{stelling}
+		Het aantal orakelmachines is aftelbaar oneindig.
+	\end{stelling}
+
+	\begin{proof}
+		Orakelmachines zijn een uitbreiding van Turingmachines, namelijk Turingmachines die een willekeurig aantal keer een orakel voor een taal kunnen oproepen. Omdat het aantal Turingmachines aftelbaar oneidinig zijn, is het aantal orakelmachines dat ook.
+	\end{proof}
+
+	\begin{stelling}
+		Het is \underline{niet} zo dat er voor elke taal \(X\) orakelmachine bestaat die \(X\) beslist.
+	\end{stelling}
+
+	\begin{proof}
+		Dit volgt uit de vorige stelling en uit het feit dat het aantal talen overaftelbaar is.
+	\end{proof}
+
+	\subsection{Turing-reductie}
+
+	\begin{stelling}
+		Indien \( A \leq_T B \) en \( B \) is beslisbaar, dan is \( A \) beslisbaar.
+	\end{stelling}
+
+	\begin{proof}
+		Omdat \( A \leq_T B \), is \(A\) beslisbaar relatief t.o.v. \(B\), of nog: \(\exists O^B\) die \(A\) beslist. Deze orakelmachine \( O^B \) roept een orakel op voor \(B\) een willekeurig aantal keer op om \(A\) te beslissen. Omdat \(B\) beslisbaar is, hoeft \(O^B\) het orakel helemaal niet op te roepen en kan deze machine gewoonweg de beslisser \(M_B\) voor \(B\) (een willekeurig aantal keer) oproepen. \(A\) is dus beslisbaar.
+	\end{proof}
+
+	\begin{stelling}
+		Indien \(A \leq_m B\), dan is \(A \leq_T B\).
+	\end{stelling}
+
+	\begin{proof}
+		Omdat \(A \leq_m B\), geldt dat \(s\in A \Leftrightarrow f(s)\in B\) met \( f \) een Turing-berekenbare functie \(\Sigma_A^*\to\Sigma_B^*\). We construeren nu de Turing-reductie van \(A\) naar \(B\), m.a.w. we bouwen een orakelmachine \(O^B\) die \(A\) beslist. Bij input \(s\) doet \(O^B\) het volgende:
+		\begin{itemize}
+			\item Bereken \(f(s)\). Dit eindigt aangezien \(f\) Turing-berekenbaar is.
+			\item Roep het orakel voor \(B\) een vraag of \(f(s)\in B\).
+			\item Als het orakel ``ja'' antwoordt, aanvaard \(s\), want \(f(s)\in B \Rightarrow s\in A\).
+			\item Als het orakel ``neen'' antwoordt, reject \(s\), want \(f(s)\notin B \Rightarrow s\notin A\).
+		\end{itemize}
+		Nu geldt dat \(O^B\) een beslisser is voor \(A\), of nog dat \(A \leq_T B\).
+	\end{proof}
+
+	\begin{stelling}
+		Indien \(A \leq_T B \leq_T C\), dan is \(A \leq_T C \qquad \Longrightarrow \qquad \leq_T\) is transitief.
+	\end{stelling}
+
+	\begin{proof} Gegeven is dat \(A \leq_T B \leq_T C\).
+		\begin{align*}
+			A \leq_T B \quad \Longrightarrow \quad &\exists O_1^B \text{ die $A$ beslist}.\\
+			B \leq_T C \quad \Longrightarrow \quad &\exists O_1^C \text{ die $B$ beslist}.
+		\end{align*}
+		Om te bewijzen dat \(A \leq_T C\), bouwen we een orakelmachine \(O_2^C\) die \(A\) beslist. Deze machine mag het orakel voor \(C\) oproepen, maar niet dat voor \(B\). Aan de hand van het orakel voor \(C\) kunnen we \(A\) niet rechtstreeks beslissen, maar we nemen een tussenstap. \hfill \\
+
+		Eerst roept \(O_2^C\) het orakel voor \(C\) op. Omdat \(B \leq_T C\), kunnen we hiermee \(B\) beslissen. Vervolgens roept \(O_2^C\) de orakelmachine \(O_1^B\) op. Dat kan en dat mag, want die orakelmachine bestaat en hoeft zijn orakel niet eens op te roepen: we hebben net \(B\) beslist, dus \(O_1^B\) is een `normale' Turingmachine die de beslisser voor \(B\) aanroept als subroutine. Omdat \(A \leq_T B\), kunnen we aan de hand van \(O_1^B\) \(A\) beslissen.
+	\end{proof}
+
+	\newpage
+	\subsection{Primitief recursieve functies (\underline{totaal}!)}
+
+	\begin{stelling}
+		Primitief recursieve functies zijn Turing-berekenbaar en kunnen geïmplementeerd worden met \texttt{for}-lussen.
+	\end{stelling}
+
+	\begin{proof}
+		Voor elke primitief recursieve functie \( f \) bestaat er een \(k\in\N\) zodat \(f\) een totale functie \( \N^k\to\N \) is. We tonen aan dat \(f\) Turing-berekenbaar is door er een programma \(\prog(f)\) mee te associëren die de functiewaarde berekent. Dit programma is een for-programma, waarbij de for-lus enkel gebruikt wordt voor primitieve recursie, afkomstig van de primitieve recursie functie constructor \(\pr\). De basisfuncties zijn evident Turing-berekenbaar en vereisen geen lussen; hetzelfde geldt voor functie-combinaties, bekomen door de combinatie functie constructor \( \cn \).
+		\hfill\\
+
+		De primitief recursieve functie \( f \) heeft een eindig functievoorschrift \(f(x_1,...,x_k) = F_1(...F_n(...x_i...)...)\), waarbij elke \(F_1,...,F_n\) één van de volgende functies is:
+		\begin{itemize}
+			\item nul
+			\item succ
+			\item \(p^i_j\)
+			\item \( \cn \)
+			\item \( \pr \)
+		\end{itemize}
+
+		Het programma van een primitieve recursieve term \( \pr[f,g](\bar{x},y)=h(\bar{x},y) \) gaat als volgt:
+
+		\floatname{algorithm}{Algoritme}
+		\begin{algorithm}
+			\caption{Primitieve Recursie}
+			\begin{algorithmic}[1]
+				\For{$i=0$ to $y$}
+					\If{$i=0$}
+						\State $r=\prog(f)[\bar{x}]$
+					\Else
+						\State $r=\prog(g)[\bar{x}, i-1, r]$
+					\EndIf
+				\EndFor
+			\end{algorithmic}
+		\end{algorithm}
+
+		De berekende waarde van \(\pr[f,g](\bar{x},y)\) is \(r\). We roepen dus 1 keer \(f\) op, 1 keer \(g\) en \(y+1\) keer \(h\). Omdat we op voorhand weten hoeveel keer we de lus uitvoeren, is de lus inderdaad een for-lus.
+
+		\rood[Volstaan dit bewijs en de bijhorende uitleg \& for-lus?]
+	\end{proof}
+
+	\newpage
+	\subsection{Recursieve functies (\(\mu\)-recursive, kunnen \underline{partieel} zijn!)}
+
+	Elke recursieve functie kan beschreven worden met een term bestaan uit de basisfuncties en Cn, Pr en Mn. Aangezien er slechts een aftelbaar aantal dergelijke termen zijn, zijn er ook slechts een \underline{aftelbaar aantal} \underline{recursieve functies} (\(\leftrightarrow\) aftelbaar aantal TM's).
+
+	\begin{stelling}
+		Recursieve functies zijn Turing-berekenbaar en kunnen geïmplementeerd worden met \texttt{while}-lussen.
+	\end{stelling}
+
+	Het programma \(\prog(g)\) geassocieerd met een recursieve functie is een while-programma, waarbij de while-lus enkel gebruikt wordt door de \textit{onbegrensde minimisator} \(\mn[f]\) We bewezen hiervoor al dat Pr, Cn en de basisfuncties Turing-berekenbaar zijn en geïmplementeerd kunnen worden met zulke for-lussen. Voor \(g=\mn[f]\) berekent onderstaande while-lus, hetgeen een \( \mu \)-recursive programma \(\prog(g)\) is, de waarde \(g(\bar{x})\):
+
+	\floatname{algorithm}{Onbegrensde minimisatie}
+	\begin{algorithm}
+		\caption{Primitieve Recursie}
+		\begin{algorithmic}[1]
+			\State $y = -1$
+			\State $z = 1$
+			\While{$z\neq 0$}
+				\State $y = y+1$
+				\State $z=\prog(f)[\bar{x}, y]$
+			\EndWhile
+		\end{algorithmic}
+	\end{algorithm}
+
+	\rood[
+		Vragen i.v.m. de zelf doen onderaan pagina 135:
+		\begin{itemize}
+			\item Ik zie niet goed in wanneer het domein van een partiële \(\mu\)-recursieve functie niet beslisbaar is...
+			\item De herkenbaarheid van het domein en het bereik snap ik dus ook niet zo goed.
+			\item Volstaat mijn bewijs hierboven m.b.t. de Turing-berekenbaarheid?
+		\end{itemize}
+	]
 
 \end{document}
 
