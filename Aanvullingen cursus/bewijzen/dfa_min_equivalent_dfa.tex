@@ -16,26 +16,30 @@
 		De f-strings van \(p\) en \(q\) zijn gelijk, dus ook hun f-strings van de vorm \(as\). De f-strings van \(p'\) zijn de strings \( s \) zodat \( as \) een f-string is van \( p \). Hetzelfde geldt voor \( q' \). Bijgevolg hebben \( p' \) en \( q' \) dezelfde f-strings en zijn ze f-gelijk.
 	\end{itemize}
 
-	De equivalentie van \(\DFA\) en \(\DFA_{\text{min}}\) bewijzen we door per inductie aan te tonen dat \[ w \text{ is een f-string van } Q_i \text{ (in } \DFA_{\text{min}} \text{)} \quad \Longleftrightarrow \quad w \text{ is een f-string van alle } q\in Q_i \text{ (in } \DFA_{\text{origineel}} \text{)}\]
+	De equivalentie van \(\DFA\) en \(\DFA_{\text{min}}\) bewijzen we door per inductie aan te tonen dat \[ w \text{ is een f-string van } S \in \tilde{Q} \text{ (in } \DFA_{\text{min}} \text{)} \quad \Longleftrightarrow \quad w \text{ is een f-string van alle } q\in S \text{ (in } \DFA_{\text{origineel}} \text{)}\]
 
 	\begin{itemize}
 		\item \underline{Basisstap}: als de lengte van de string \(w\) gelijk is aan 0, geldt dat \(w=\epsilon\). Nu geldt dat
 		\begin{align*}
-				\epsilon \text{ is een f-string van } Q_i &\Leftrightarrow Q_i \in \tilde{F} \\
-				&\Leftrightarrow Q_i \subseteq F && \text{definitie } \tilde{F} \\
-				&\Leftrightarrow \forall q \in Q_i : q \in F \\
-				&\Leftrightarrow \epsilon \text{ is een f-string van alle } q \in Q_i
+				\epsilon \text{ is een f-string van } S &\Leftrightarrow S \in \tilde{F} \\
+				&\Leftrightarrow S \subseteq F && \text{definitie } \tilde{F} \\
+				&\Leftrightarrow \forall q \in S : q \in F \\
+				&\Leftrightarrow \epsilon \text{ is een f-string van alle } q \in S
 		\end{align*}
 		\item \underline{Inductiehypothese}: stel dat de stelling geldt voor strings \(w\) van hoogstens lengte \(\abs{w}=n\).
-		\item \underline{Inductiestap}: beschouw de string \(w'=bw\). We tonen aan dat de stelling ook geldt voor deze string van lengte \(\abs{w'}=n+1\), m.a.w. we tonen aan dat \[w'=bw \text{ is een f-string van } Q_i \Leftrightarrow w'=bw \text{ is een f-string van alle } q\in Q_i \]Er geldt dat
+		\item \underline{Inductiestap}: beschouw de string \(w'=bw\). We tonen aan dat de stelling ook geldt voor deze string van lengte \(\abs{w'}=n+1\), m.a.w. we tonen aan dat \[w'=bw \text{ is een f-string van } S \Leftrightarrow w'=bw \text{ is een f-string van alle } q\in S \]Er geldt dat
 		\begin{align*}
-			bw \text{ is een f-string van } Q_i &\Leftrightarrow \tilde{\delta}^*(Q_i,bw) \in \tilde{F} \\
-			&\Leftrightarrow \tilde{\delta}^*\left(\tilde{\delta}(Q_i,b),w\right) \in \tilde{F} && \text{(ind. definitie } \delta^*\text{)} \\
-			&\Leftrightarrow w \text{ is een f-string van } \tilde{\delta}(Q_i,b)\\
-			&\Leftrightarrow w \text{ is een f-string van alle } q \in \tilde{\delta}(Q_i,b) && \text{(inductiehypothese)} \\
-			&\Leftrightarrow bw \text{ is een f-string van alle } q \in Q_i
+			bw \text{ is een f-string van } S &\Leftrightarrow \tilde{\delta}^*(S,bw) \in \tilde{F} \\
+			&\Leftrightarrow \tilde{\delta}^*\left(\tilde{\delta}(S,b),w\right) \in \tilde{F} && \text{(ind. definitie } \delta^*\text{)} \\
+			&\Leftrightarrow w \text{ is een f-string van } \tilde{\delta}(S,b)\\
+			&\Leftrightarrow w \text{ is een f-string van alle } q \in \tilde{\delta}(S,b) && \text{(inductiehypothese)} \\
+			&\Leftrightarrow bw \text{ is een f-string van alle } q \in S
 		\end{align*}
 	\end{itemize}
+
+	Hieruit volgt dat \(\tilde{q}_s = [q_s]_{\sim_f} \in \tilde{Q}\) dezelfde f-strings heeft als \(q_s\), en deze verzameling strings vormt de taal die beide DFA's bepalen.\\
+
+	We bewijzen nu nog dat twee verschillende toestanden \(P,S \in \tilde{Q}\) f-verschillend zijn: \(P\) en \(S\) bevatten f-verschillende toestanden uit \(Q\). Aangezien de f-strings van \(P\) en \(S\) die van hun elementen (toestanden uit \(Q\)) zijn, zijn ze f-verschillend.\\
 
 	\textbf{Zie p45 voor het bewijs van de uniciteit.}
 

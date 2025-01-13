@@ -3,7 +3,7 @@
 
 Gegeven \(\NFA_1 = (Q_1,\Sigma,\delta_1,q_{s1},\{q_{f1}\})\) en \(\NFA_2 = (Q_2,\Sigma,\delta_2,q_{s2},\{q_{f2}\})\). \\
 
-De concatenatie \(\NFA_1\NFA_2\) is de \(\NFA = (Q,\Sigma,\delta,q_s,\{q_f\})\) waarbij
+De concatenatie \(\NFA_1\NFA_2\) is de \(\NFA = (Q,\Sigma,\delta,q_s,F)\) waarbij
 
 \begin{itemize}
 	\item \(Q = Q_1 \cup Q_2\)
@@ -19,7 +19,7 @@ De concatenatie \(\NFA_1\NFA_2\) is de \(\NFA = (Q,\Sigma,\delta,q_s,\{q_f\})\) 
 	Hierbij moet de eerste regel eigenlijk niet expliciet worden vermeld. We zijn hier bezig met NFA's, dus als er geen overgangsregel voor een bepaald symbool \( x \) gedefinieerd is, wordt er vanuit gegaan dat \( \delta(q,x)=\emptyset \).
 \end{itemize}
 
-De ster \((\NFA_1)^*\) is de \(\NFA = (Q,\Sigma,\delta,q_s,\{q_f\})\) waarbij
+De ster \((\NFA_1)^*\) is de \(\NFA = (Q,\Sigma,\delta,q_s,F)\) waarbij
 
 \begin{itemize}
 	\item \(Q = Q_1 \cup \{q_s,q_f\}\)

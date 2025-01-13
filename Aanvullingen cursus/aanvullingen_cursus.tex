@@ -154,7 +154,7 @@
 
 	\section{Talen \& Berekenbaarheid}
 
-	\subsection{Beslisbaarheid/herkenbaarheid}
+	\subsection*{Pagina 108}
 
 	\begin{stelling}
 		\(\overline{EQ_\CFG}\) is herkenbaar.
@@ -172,15 +172,17 @@
 		Dit volgt uit de vorige stelling enerzijds en uit het feit dat \(EQ_\CFG\) niet beslisbaar is anderzijds.
 	\end{proof}
 
+	\subsection*{Pagina 113}
+
 	\begin{stelling}
 		\(\text{ALL}_\text{RegExp}\) is beslisbaar.
 	\end{stelling}
 
 	\begin{proof}
-		\rood[Zie vraag in mijn mail.]
+		Gegeven een reguliere expressie \(E\), kan je een DFA \(D\) opstellen die dezelfde taal bepaalt, i.e. \(L_E=L_D\). Stel nu de minimale DFA \(D_{\min}\) op zodat \(L_D=L_{D_{\min}}=L_E\). Als \(D_{\min}\) isomorf is met de DFA die slechts 1 toestand heeft en die vanuit die toestand slechts 1 boog heeft met daarop alle symbolen in \(\Sigma\), dan geldt dat \(L_E=\Sigma^*\).
 	\end{proof}
 
-	\subsection{Veel-een reductie}
+	\subsection*{Pagina 124}
 
 	\begin{stelling}
 		Stel dat \(L_1 \leq_m L_2\), dus m.a.w. \[ \exists \text{ Turing-berekenbare, totale } f : \Sigma_1^*\to\Sigma_2^* \text{ zodat } f(L_1) \subseteq L_2 \text{ en } f(\overline{L_1}) \subseteq \overline{L_2} \] dan geldt dat \(s\in L_1 \Leftrightarrow f(s)\in L_2\)
@@ -191,7 +193,7 @@
 			f(L_1) \subseteq L_2                       & \Rightarrow (x \in L_1 \Rightarrow f(x) \in L_2) \label{rechterimpl} \\
 			f(\overline{L_1}) \subseteq \overline{L_2} & \Rightarrow (x \in \overline{L_1} \Rightarrow f(x) \in \overline{L_2})\nonumber \\
 														& \Rightarrow (x \notin L_1 \Rightarrow f(x) \notin L_2)\nonumber \\
-														& \Rightarrow (f(x) \in L_2 \Rightarrow x \in L_2) \label{linkerimpl}
+														& \Rightarrow (f(x) \in L_2 \Rightarrow x \in L_1) \label{linkerimpl}
 		\end{align}
 		Uit \eqref{rechterimpl} en \eqref{linkerimpl} volgt de equivalentie \((s\in L_1 \Leftrightarrow f(s)\in L_2)\).
 	\end{proof}
@@ -210,12 +212,14 @@
 		Dit bewijst de stelling.
 	\end{proof}
 
+	\subsection*{Pagina 125}
+
 	\begin{stelling}
 		\(E_\text{TM}\) is niet beslisbaar.
 	\end{stelling}
 
 	\begin{proof}
-		Uit het bewijs op pagina 109 van de cursus werd \(\overline{A_\text{TM}}\) many-to-one gereduceerd tot \(E_\text{TM}\), dus \(E_\text{TM} \leq_m \overline{A_\text{TM}}\). Omdat \(\overline{A_\text{TM}}\) niet beslisbaar is, is \(E_\text{TM}\) dat ook niet.
+		Uit het bewijs op pagina 109 van de cursus werd \(\overline{A_\text{TM}}\) many-to-one gereduceerd tot \(E_\text{TM}\), dus \(\overline{A_\text{TM}} \leq_m E_\text{TM}\). Omdat \(\overline{A_\text{TM}}\) niet beslisbaar is, is \(E_\text{TM}\) dat ook niet.
 	\end{proof}
 
 	\begin{stelling}
@@ -223,35 +227,43 @@
 	\end{stelling}
 
 	\begin{proof}
-		In oefenzitting 7 werd bewezen dat \(\overline{E_\text{TM}}\) niet herkenbaar is. \(E_\text{TM}\) kan dus niet herkenbaar zijn, want als een taal zowel herkenbaar als co-herkenbaar is, is die taal beslisbaar hierboven bewezen we reeds dat \(E_\text{TM}\) niet beslisbaar is.
+		In oefenzitting 7 werd bewezen dat \(\overline{E_\text{TM}}\) herkenbaar is. \(E_\text{TM}\) kan dus niet herkenbaar zijn, want als een taal zowel herkenbaar als co-herkenbaar is, is die taal beslisbaar en hierboven bewezen we reeds dat \(E_\text{TM}\) niet beslisbaar is.
 	\end{proof}
 
-	\subsection{Orakelmachines}
+	\subsection*{Pagina 128}
 
 	\begin{stelling}
-		Het aantal orakelmachines is aftelbaar oneindig.
+		Er zijn overaftelbaar veel orakelmachines.
 	\end{stelling}
 
 	\begin{proof}
-		Orakelmachines zijn een uitbreiding van Turingmachines, namelijk Turingmachines die een willekeurig aantal keer een orakel voor een taal kunnen oproepen. Omdat het aantal Turingmachines aftelbaar oneidinig zijn, is het aantal orakelmachines dat ook.
+		Voor elke taal is er een orakel, dus de verzameling van alle mogelijke orakelmachines is overaftelbaar.
 	\end{proof}
 
 	\begin{stelling}
-		Het is \underline{niet} zo dat er voor elke taal \(X\) orakelmachine bestaat die \(X\) beslist.
+		Het aantal orakelmachines voor een bepaalde taal is aftelbaar oneindig.
+	\end{stelling}
+
+	\begin{proof}
+		Orakelmachines zijn een uitbreiding van Turingmachines, namelijk Turingmachines die een willekeurig aantal keer een orakel voor een taal kunnen oproepen. Omdat het aantal Turingmachines aftelbaar oneindig is, is het aantal orakelmachines voor een bepaalde taal dat ook.
+	\end{proof}
+
+	\begin{stelling}
+		Het is \underline{niet} zo dat er voor elke taal \(X\) een orakelmachine bestaat die \(X\) beslist.
 	\end{stelling}
 
 	\begin{proof}
 		Dit volgt uit de vorige stelling en uit het feit dat het aantal talen overaftelbaar is.
 	\end{proof}
 
-	\subsection{Turing-reductie}
+	\subsection*{Pagina 127}
 
 	\begin{stelling}
 		Indien \( A \leq_T B \) en \( B \) is beslisbaar, dan is \( A \) beslisbaar.
 	\end{stelling}
 
 	\begin{proof}
-		Omdat \( A \leq_T B \), is \(A\) beslisbaar relatief t.o.v. \(B\), of nog: \(\exists O^B\) die \(A\) beslist. Deze orakelmachine \( O^B \) roept een orakel op voor \(B\) een willekeurig aantal keer op om \(A\) te beslissen. Omdat \(B\) beslisbaar is, hoeft \(O^B\) het orakel helemaal niet op te roepen en kan deze machine gewoonweg de beslisser \(M_B\) voor \(B\) (een willekeurig aantal keer) oproepen. \(A\) is dus beslisbaar.
+		Omdat \( A \leq_T B \), is \(A\) beslisbaar relatief t.o.v. \(B\), of nog: \(\exists O^B\) die \(A\) beslist. Deze orakelmachine \( O^B \) roept een orakel  voor \(B\) een willekeurig aantal keer op om \(A\) te beslissen. Omdat \(B\) beslisbaar is, fungeert de beslisser \(M_B\) voor \(B\) als het orakel voor \(B\). \(A\) is dus beslisbaar.
 	\end{proof}
 
 	\begin{stelling}
@@ -269,6 +281,7 @@
 		Nu geldt dat \(O^B\) een beslisser is voor \(A\), of nog dat \(A \leq_T B\).
 	\end{proof}
 
+	\newpage
 	\begin{stelling}
 		Indien \(A \leq_T B \leq_T C\), dan is \(A \leq_T C \qquad \Longrightarrow \qquad \leq_T\) is transitief.
 	\end{stelling}
@@ -280,21 +293,20 @@
 		\end{align*}
 		Om te bewijzen dat \(A \leq_T C\), bouwen we een orakelmachine \(O_2^C\) die \(A\) beslist. Deze machine mag het orakel voor \(C\) oproepen, maar niet dat voor \(B\). Aan de hand van het orakel voor \(C\) kunnen we \(A\) niet rechtstreeks beslissen, maar we nemen een tussenstap. \hfill \\
 
-		Eerst roept \(O_2^C\) het orakel voor \(C\) op. Omdat \(B \leq_T C\), kunnen we hiermee \(B\) beslissen. Vervolgens roept \(O_2^C\) de orakelmachine \(O_1^B\) op. Dat kan en dat mag, want die orakelmachine bestaat en hoeft zijn orakel niet eens op te roepen: we hebben net \(B\) beslist, dus \(O_1^B\) is een `normale' Turingmachine die de beslisser voor \(B\) aanroept als subroutine. Omdat \(A \leq_T B\), kunnen we aan de hand van \(O_1^B\) \(A\) beslissen.
+		Eerst roept \(O_2^C\) het orakel voor \(C\) op. Omdat \(B \leq_T C\), kunnen we hiermee \(B\) beslissen. Omdat \(B\) beslisbaar is, bestaat er dus een beslisser \(B_B\). Aangezien \(A \leq_T B\), kunnen we aan de hand van die beslisser \(B_B\) voor \(B\) de taal \(A\) beslissen. We hebben zonet bewezen dat \(O_2^C\) aan de hand van het orakel voor \(C\) de taal \(A\) kan beslissen, m.a.w. \(A \leq_T C\). Dit wil precies zeggen dat \(\leq_T\) transitief is.
 	\end{proof}
 
-	\newpage
-	\subsection{Primitief recursieve functies (\underline{totaal}!)}
+	\subsection*{Primitief recursieve functies (\underline{totaal}!)}
 
 	\begin{stelling}
 		Primitief recursieve functies zijn Turing-berekenbaar en kunnen geïmplementeerd worden met \texttt{for}-lussen.
 	\end{stelling}
 
 	\begin{proof}
-		Voor elke primitief recursieve functie \( f \) bestaat er een \(k\in\N\) zodat \(f\) een totale functie \( \N^k\to\N \) is. We tonen aan dat \(f\) Turing-berekenbaar is door er een programma \(\prog(f)\) mee te associëren die de functiewaarde berekent. Dit programma is een for-programma, waarbij de for-lus enkel gebruikt wordt voor primitieve recursie, afkomstig van de primitieve recursie functie constructor \(\pr\). De basisfuncties zijn evident Turing-berekenbaar en vereisen geen lussen; hetzelfde geldt voor functie-combinaties, bekomen door de combinatie functie constructor \( \cn \).
+		Voor elke primitief recursieve functie \( h \) bestaat er een \(k\in\N\) zodat \(h\) een totale functie \( \N^k\to\N \) is. We tonen aan dat \(f\) Turing-berekenbaar is door er een programma \(\prog(h)\) mee te associëren dat de functiewaarde berekent. Dit programma is een for-programma, waarbij de for-lus enkel gebruikt wordt voor primitieve recursie, afkomstig van de primitieve recursie functie constructor \(\pr\). De basisfuncties zijn evident Turing-berekenbaar en vereisen geen lussen; hetzelfde geldt voor functie-combinaties, bekomen door de combinatie functie constructor \( \cn \).
 		\hfill\\
 
-		De primitief recursieve functie \( f \) heeft een eindig functievoorschrift \(f(x_1,...,x_k) = F_1(...F_n(...x_i...)...)\), waarbij elke \(F_1,...,F_n\) één van de volgende functies is:
+		De primitief recursieve functie \( h \) heeft een eindig functievoorschrift \(h(x_1,...,x_k) = F_1(...F_n(...x_i...)...)\), waarbij elke \(F_1,...,F_n\) één van de volgende functies is:
 		\begin{itemize}
 			\item nul
 			\item succ
@@ -319,21 +331,19 @@
 			\end{algorithmic}
 		\end{algorithm}
 
-		De berekende waarde van \(\pr[f,g](\bar{x},y)\) is \(r\). We roepen dus 1 keer \(f\) op, 1 keer \(g\) en \(y+1\) keer \(h\). Omdat we op voorhand weten hoeveel keer we de lus uitvoeren, is de lus inderdaad een for-lus.
-
-		\rood[Volstaan dit bewijs en de bijhorende uitleg \& for-lus?]
+		De berekende waarde van \(\pr[f,g](\bar{x},y)\) is \(r\). We roepen dus 1 keer \(f\) op, 1 keer \(g\) en \(y+1\) keer \(h\). Inductie: veronderstel dat de functies \(f\) en \(g\) kunnen beschreven worden door for-programma's \(\prog(f)\) en \(\prog(g)\) met aantal stappen respectievelijk \(s_{f(\bar{x})}\) en \(s_{g(\bar{x},y,h(\bar{x},i))}\). Veronderstel dat we het aantal stappen voor \(\prog(h(\bar{x},i))\) kunnen berekenen, namelijk \(s_{h(\bar{x},i)}\). Dan is het aantal stappen voor \(h(\bar{x},i+1)\) gegeven door \(s_{h(\bar{x},i+1)}=s_{f(\bar{x})}+s_{g(\bar{x},y,h(\bar{x},i))}\). Omdat we op voorhand  weten hoeveel keer we de lus uitvoeren, is de lus inderdaad een for-lus.
 	\end{proof}
 
 	\newpage
-	\subsection{Recursieve functies (\(\mu\)-recursive, kunnen \underline{partieel} zijn!)}
+	\subsection*{Recursieve functies (\(\mu\)-recursive, kunnen \underline{partieel} zijn!)}
 
-	Elke recursieve functie kan beschreven worden met een term bestaan uit de basisfuncties en Cn, Pr en Mn. Aangezien er slechts een aftelbaar aantal dergelijke termen zijn, zijn er ook slechts een \underline{aftelbaar aantal} \underline{recursieve functies} (\(\leftrightarrow\) aftelbaar aantal TM's).
+	Elke recursieve functie kan beschreven worden met een term bestaande uit de basisfuncties en Cn, Pr en Mn. Aangezien er slechts een aftelbaar aantal dergelijke termen zijn, zijn er ook slechts een \underline{aftelbaar aantal} \underline{recursieve functies} (\(\leftrightarrow\) aftelbaar aantal TM's).
 
 	\begin{stelling}
 		Recursieve functies zijn Turing-berekenbaar en kunnen geïmplementeerd worden met \texttt{while}-lussen.
 	\end{stelling}
 
-	Het programma \(\prog(g)\) geassocieerd met een recursieve functie is een while-programma, waarbij de while-lus enkel gebruikt wordt door de \textit{onbegrensde minimisator} \(\mn[f]\) We bewezen hiervoor al dat Pr, Cn en de basisfuncties Turing-berekenbaar zijn en geïmplementeerd kunnen worden met zulke for-lussen. Voor \(g=\mn[f]\) berekent onderstaande while-lus, hetgeen een \( \mu \)-recursive programma \(\prog(g)\) is, de waarde \(g(\bar{x})\):
+	Het programma \(\prog(g)\) geassocieerd met een recursieve functie is een while-programma, waarbij de while-lus enkel gebruikt wordt door de \textit{onbegrensde minimisator} \(\mn[f]\). We bewezen hiervoor al dat Pr, Cn en de basisfuncties Turing-berekenbaar zijn en geïmplementeerd kunnen worden met for-lussen. Voor \(g=\mn[f]\) berekent onderstaande while-lus, hetgeen een \( \mu \)-recursive programma \(\prog(g)\) is, de waarde \(g(\bar{x})\):
 
 	\floatname{algorithm}{Onbegrensde minimisatie}
 	\begin{algorithm}
@@ -348,14 +358,33 @@
 		\end{algorithmic}
 	\end{algorithm}
 
-	\rood[
-		Vragen i.v.m. de zelf doen onderaan pagina 135:
-		\begin{itemize}
-			\item Ik zie niet goed in wanneer het domein van een partiële \(\mu\)-recursieve functie niet beslisbaar is...
-			\item De herkenbaarheid van het domein en het bereik snap ik dus ook niet zo goed.
-			\item Volstaat mijn bewijs hierboven m.b.t. de Turing-berekenbaarheid?
-		\end{itemize}
-	]
+	\subsection*{Pagina 135}
+
+	\begin{stelling}
+		Er bestaat een partiële recursieve functie waarvan het domein niet beslisbaar is.
+	\end{stelling}
+
+	\begin{proof}
+		Denk aan een functie \(f\) die een string \(m\) en een getal \(s\) als argument neemt, maarbij de string \(m\) als geheel getal kan morden doorgegeven. De functie interpreteert deze string als de beschrijving van een Turingmachine \(M\) met een lege band en een starttoestand \(q_s\). Vervolgens simuleert \(f\) de Turingmachine \(M\) voor \(s\) stappen op de string \(m\). Als de machine na \(y\) stappen in een eindtoestand \(q_e\) of \(q_f\) is, is \(f(m,s)=0\), anders is \(f(m,s)=1\). De onbegrensde minimizatie \(\operatorname{Mn}[f](m)\) geeft dus enkel een waarde terug als de Turingmachine \(M\), geëncodeerd aan de hand van de string \(x\), stopt en het resultaat van deze minimisatie is het aantal stappen dat werd uitgevoerd. Omdat \(H_\text{TM}\) onbeslisbaar is, is het domein van (de partiële, \(\mu\)-recursieve functie) \(\operatorname{Mn}[f](m)\) dat ook. Er bestaat dus een partiële recursieve functie waarvan het domein niet beslisbaar is.
+
+		Merk op dat we de functie \(f\) kunnen schrijven met primitieve recursie (en \(f\) dus \underline{totaal} is): alle stappen morden bepaald door de eindige transitiefunctie \(\delta : Q \times \Gamma \to Q \times \Gamma \times \{L,R,S\}\) van de Turingmachine en bovendien is het aantal stappen dat we willen nemen op voorhand bekend, namelijk \(s\).
+	\end{proof}
+
+	\begin{stelling}
+		Het domein van een (partiële) recursieve functie is herkenbaar.
+	\end{stelling}
+
+	\begin{proof}
+		Als er geen onbegrensde minimisatie gebruikt wordt, is een (partiële) recursieve functie \(f\) volledig gedefinieerd. Als er ergens een functie \(\operatorname{Mn}[g]\) wordt gebruikt, kan \(f(x)\) gedefinieerd zijn of niet. Indien zulke onbegrensde minimisaties allemaal gedefinieerd zijn, is \(f\) ook overal gedefinieerd en behoort \(x\) tot \(\operatorname{dom}(f)\). Het domein is dus herkenbaar.
+	\end{proof}
+
+	\begin{stelling}
+		Turingberekenbare functies zijn te coderen als recursieve functies.
+	\end{stelling}
+
+	\begin{proof}
+		We vertrekken vanaf een encodering \(m\) van een Turingmachine \(M\) die \(f(x)\) berekent. We gebruiken twee keer onbegrensde minimisatie. De eerste keer berekenen we het aantal stappen die \(M\) nodig heeft om \(f(x)\). We gebruiken hiervoor een functie \(m_1(m,s)\) die 0 teruggeeft als de Turingmachine \(M\), beschreven door \(m\), na \(s\) stappen eindigt en 1 teruggeeft als \(M\) niet eindigt na \(s\) stappen. De tweede keer gebruiken we de functie \(m_2(m,s,y)\), die de Turingmachine \(M\) met encodering \(m\) voor \(s\) stappen laat lopen en 0 teruggeeft als het resultaat \(y\) gevonden is, en 1 indien \(y\) niet gevonden werd.
+	\end{proof}
 
 \end{document}
 

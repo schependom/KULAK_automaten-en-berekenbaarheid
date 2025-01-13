@@ -11,7 +11,7 @@
 	\begin{itemize}
 		\item \(Q=\{q_s,x,q_f\}\)
 		\item \(\Sigma = \Sigma_G \qquad \qquad\) \scriptsize(het alfabet van de PDA is gelijk aan de verzameling terminalen van de CFG) \normalsize
-		\item \(\Gamma = (\Sigma_G \cup V)^* \cup \{\$\}\)
+		\item \(\Gamma = \Sigma_G \cup V \cup \{\$\}\)
 		\item Overgangsfunctie \(\delta:Q\times \Sigma_\epsilon \times \Gamma_\epsilon \to \powerset[Q\times\color{red}\Gamma_\epsilon^*\color{black}]\):
 		\begin{align*}
 			&(1) & \delta(q_s,\epsilon,\epsilon) &=\{(x,S\$)\} && \text{met \(S\in V\) het startsymbool van }G \\
