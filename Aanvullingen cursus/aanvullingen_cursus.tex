@@ -130,7 +130,32 @@
 	\newpage
 	\subsection*{Pagina 34, bewijs \( \DFA_{\text{min}} \)}
 
+	\(\DFA_{\text{min}} = (\tilde{Q}, \Sigma, \tilde{\delta}, \tilde{q_s}, \tilde{F})\)
+	\begin{itemize}
+		\item \(\tilde{Q} = \{S \mid \exists q \in Q : S = [q]_{\sim_f}\}\) = equivalentieklassen van de equivalentierelatie f-gelijk (\(\sim_f\))
+		\item \(\tilde{\delta}(S, a) = P\) indien er een \(q \in S\) bestaat zodat \( \delta(q,a) \in P\)
+		\item \(\tilde{q_s} = [q_s]_{\sim_f}\)
+		\item \(\tilde{F} = \{S \in \tilde{Q} \mid S \cap F \neq \emptyset \} = \{S \in \tilde{Q} \mid S \subseteq F\} \)
+	\end{itemize}
+	Merk op dat \(S \cap F \neq \emptyset \Leftrightarrow S \subseteq F\), want alle elementen (toestanden) van \(S\) zijn f-gelijk: ofwel behoren alle toestanden in \(S\) tot \(F\), ofwel geen enkele.
+
 	\subfile{bewijzen/dfa_min_equivalent_dfa}
+
+	\textbf{Zie p37 voor het bewijs van de minimaliteit:}\\
+	``Als \(N\) een DFA is zonder onbereikbare toestanden en waarin elke twee toestanden f-verschillend zijn, dan bestaat er geen machine
+	met strikt minder toestanden die dezelfde taal bepaalt."
+
+	\begin{stelling}
+		Twee DFA's zijn isomorf als en slechts als hun \mnl-relaties gelijk zijn.
+	\end{stelling}
+
+	\begin{proof}
+		Stel dat \(D_1\) en \(D_2\) isomorf zijn met isomorfisme \(f\). Zij \(g(q)\) een functie die een toestand \(q \in Q_1\) mapt naar de bijhorende equivalentieklasse in de \mnl-relatie van \(D_2\) en zij \(h(q)\) een functie die een toestand \(q \in Q_2\) mapt naar de bijhorende equivalentieklasse in de \mnl-relatie van \(D_1\). Voor elke toestanden \(q \in Q_1\) geldt dat de equivalentieklasse \(g(q)\) gelijk is aan de equivalentieklasse \(h(f(q))\).
+	\end{proof}
+
+	\textbf{Nu volgt de uniciteit:}\\
+	Stel dat \(D_1\) en \(D_2\) twee minimale DFA's zijn voor een taal \(L\). We zullen bewijzen dat ze isomorf zijn. Beiden
+	hebben hetzelfde aantal toestanden \(n\) - anders was één van de twee niet minimaal. Neem nu het supremum van die twee DFA’s: je krijgt een DFA met opnieuw \(n\) toestanden, want meer kan niet, maar ook minder niet. In termen van \mnl-relaties, wil dat zeggen dat de drie relaties identiek zijn. Uit bovenstaande stelling volgt dan dat de drie DFA's isomorf zijn.
 
 	\newpage
 	\subsection*{Pagina 43, equivalentie \mnl \,en DFA}
@@ -249,7 +274,7 @@
 	\end{proof}
 
 	\begin{stelling}
-		Het is \underline{niet} zo dat er voor elke taal \(X\) een orakelmachine bestaat die \(X\) beslist.
+		Het is \underline{niet} zo dat een orakelmachine \(O^Y\) met orakel voor een `moeilijke' taal \(Y\) eender welke andere taal \(X\) kan beslissen.
 	\end{stelling}
 
 	\begin{proof}
@@ -365,7 +390,7 @@
 	\end{stelling}
 
 	\begin{proof}
-		Denk aan een functie \(f\) die een string \(m\) en een getal \(s\) als argument neemt, maarbij de string \(m\) als geheel getal kan morden doorgegeven. De functie interpreteert deze string als de beschrijving van een Turingmachine \(M\) met een lege band en een starttoestand \(q_s\). Vervolgens simuleert \(f\) de Turingmachine \(M\) voor \(s\) stappen op de string \(m\). Als de machine na \(y\) stappen in een eindtoestand \(q_e\) of \(q_f\) is, is \(f(m,s)=0\), anders is \(f(m,s)=1\). De onbegrensde minimizatie \(\operatorname{Mn}[f](m)\) geeft dus enkel een waarde terug als de Turingmachine \(M\), geëncodeerd aan de hand van de string \(x\), stopt en het resultaat van deze minimisatie is het aantal stappen dat werd uitgevoerd. Omdat \(H_\text{TM}\) onbeslisbaar is, is het domein van (de partiële, \(\mu\)-recursieve functie) \(\operatorname{Mn}[f](m)\) dat ook. Er bestaat dus een partiële recursieve functie waarvan het domein niet beslisbaar is.
+		Denk aan een functie \(f\) die een string \(m\) en een getal \(s\) als argument neemt, maarbij de string \(m\) als geheel getal kan morden doorgegeven. De functie interpreteert deze string als de beschrijving van een Turingmachine \(M\) met een lege band en een starttoestand \(q_s\). Vervolgens simuleert \(f\) de Turingmachine \(M\) voor \(s\) stappen op de string \(m\). Als de machine na \(y\) stappen in een eindtoestand \(q_e\) of \(q_f\) is, is \(f(m,s)=0\), anders is \(f(m,s)=1\). De onbegrensde minimizatie \(\operatorname{Mn}[f](m)\) geeft dus enkel een waarde terug als de Turingmachine \(M\), geëncodeerd aan de hand van de string \(m\), stopt en het resultaat van deze minimisatie is het aantal stappen dat werd uitgevoerd. Omdat \(H_\text{TM}\) onbeslisbaar is, is het domein van (de partiële, \(\mu\)-recursieve functie) \(\operatorname{Mn}[f](m)\) dat ook. Er bestaat dus een partiële recursieve functie waarvan het domein niet beslisbaar is.
 
 		Merk op dat we de functie \(f\) kunnen schrijven met primitieve recursie (en \(f\) dus \underline{totaal} is): alle stappen morden bepaald door de eindige transitiefunctie \(\delta : Q \times \Gamma \to Q \times \Gamma \times \{L,R,S\}\) van de Turingmachine en bovendien is het aantal stappen dat we willen nemen op voorhand bekend, namelijk \(s\).
 	\end{proof}

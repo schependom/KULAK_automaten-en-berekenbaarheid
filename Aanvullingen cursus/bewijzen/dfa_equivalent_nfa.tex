@@ -1,6 +1,14 @@
 \documentclass[../aanvullingen_cursus.tex]{subfiles}
 \begin{document}
 
+\(D = (Q',\Sigma, \delta', q_s', F')\)
+\begin{itemize}
+	\item \(Q' = \{S \subseteq Q \mid S \text{ is gesloten onder } \epsilon\text{-bogen}\} = \{S \subseteq Q \mid (p \in S \land p \rpijl{\epsilon} q) \Rightarrow q \in S \} \)
+	\item \(\delta' : Q' \times \Sigma \to Q' : (S,a) \mapsto \{q \mid \exists p \in S: p \pijl{a} q\}\) = gesloten onder \epsilonbogen ! \(\Rightarrow \delta'(S,a) \in Q'\)
+	\item \(q_s' = \{q_s\} \cup \{q \in Q \mid q_s \pijl{\epsilon} q \} = \{q_s \text{ en alle toestanden die vanuit $q_s$ bereikbaar zijn met \epsilonbogen}\} \)
+	\item \(F' = \{S \in Q' \mid S \cap F \neq \emptyset\}\)
+\end{itemize}
+
 \begin{stelling}
 	\( (Q',\Sigma, \delta', q_s',F') \) is een DFA equivalent met de NFA \((Q,\Sigma,\delta,q_s,F)\)
 \end{stelling}
@@ -26,11 +34,11 @@
 			\item \underline{Inductiehypothese}: veronderstel dat de stelling geldt voor alle strings \(w\) van hoogstens lengte \(\abs{w}=n\).
 			\item \underline{Inductiestap}: Beschouw een string \(w' = wa \) (met \(a \in \Sigma\)) van lengte \(n+1\).
 
-			We willen aantonen dat als \(q_{s}' \overset{wa}{\rightsquigarrow} S\), dan geldt \(\forall p \in S: q_s \overset{wa}{\rightsquigarrow} p\). Zij \(S_{-1}\) de toestand in de DFA zodat \(q_{s}' \overset{w}{\rightsquigarrow} S_{-1}\). Wegens de inductiehypothese geldt nu \[ \forall p\in S_{-1}: \quad q_s \overset{w}{\rightsquigarrow} p\]We kunnen in de DFA in \(S\) geraken door een pijl met label \(a\) te volgen vanuit toestand \(S_{-1}\). Dit betekent precies dat \(S\) de verzameling is van alle toestanden die we in de NFA kunnen bereiken door vanuit een toestand in \(S_{-1}\) een pijl te nemen met een label \(a\) erop, gevolgd door eventueel een aantal \epsilonbogen. En dus geldt voor iedere \(p \in S\) dat \(q_s \pijl{wa=w'} p \), hetgeen we wilden bewijzen.
+			We willen aantonen dat als \(q_{s}' \overset{wa}{\rightsquigarrow} S\), dan geldt \(\forall p \in S: q_s \overset{wa}{\rightsquigarrow} p\). Zij \(S_{-1}\) de toestand in de DFA zodat \(q_{s}' \overset{w}{\rightsquigarrow} S_{-1}\). Wegens de inductiehypothese geldt nu \[ \forall p\in S_{-1}: \quad q_s \overset{w}{\rightsquigarrow} p\]We kunnen in de DFA in \(S\) geraken door een pijl met label \(a\) te volgen vanuit toestand \(S_{-1}\): \(S = \delta'(S_{-1},a)\). Dit betekent precies dat \(S\) de verzameling is van alle toestanden die we in de NFA kunnen bereiken door vanuit een toestand in \(p \in S_{-1}\) een pijl te nemen met een label \(a\) erop, gevolgd door eventueel een aantal \epsilonbogen. Er geldt immers: \[S=\delta'(S_{-1},a)=\{q \mid \exists p \in S_{-1}: p \pijl{a} q\}\] En dus geldt voor iedere \(q \in S\) dat \(q_s \pijl{wa=w'} q \), hetgeen we wilden bewijzen.
 		\end{itemize}
 
-		Nu volgt dat \[q_s'\pijl{w}F' \quad \overset{\text{def. }F'}{\Longrightarrow} \quad \exists S \in F': q_s' \pijl{w} S \quad \overset{\text{hierboven}}{\Longrightarrow} \quad \forall p \in S: q_s \pijl{w} p\]
-		Omdat \(S\in F'\) geldt dat \(\exists p \in S : p \in F\). Voor die \(p\) geldt dus ook dat \(q_s \pijl{w} p\) en dus \(q_s \pijl{w} F\), q.e.d..
+		Nu volgt dat \[q_s'\pijl{w}F' \quad {\Longrightarrow} \quad \exists S \in F': q_s' \pijl{w} S \quad \overset{\text{hierboven}}{\Longrightarrow} \quad \forall p \in S: q_s \pijl{w} p\]
+		Omdat \(S\in F'\) geldt dat \(\exists p \in S : p \in F\). Voor die \(p\) geldt dus ook dat \(q_s \pijl{w} p\) en dus \(q_s \pijl{w} F\); q.e.d.
 
 		\item[\(\Leftarrow\)] Als \(q_s \pijl{w} F\), dan bestaat er een \(p \in F\) zodat \(q_s \pijl{w} p\). Er bestaat in de NFA dus een accepterend pad \(q_s, q_1, q_2, ..., q_n, p\). Voor een toestand \( q \) in de NFA, zij \(S(q)\) de grootste verzameling die \(q\) bevat en gesloten is onder \epsilonbogen. Nu is \(S(q_s), S(q_1), S(q_2), ..., S(q_n), S(p)\) een accepterend pad in de DFA. En dus geldt dat \(q_{s}' \pijl{w} S(p)\) -- en dus ook dat \(q_{s}' \pijl{w} F'\), want het beschreven pad met verzamelingen \(S(q)\), die gesloten zijn onder \epsilonbogen, is een accepterend pad.
 	\end{enumerate}
