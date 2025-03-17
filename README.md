@@ -1,6 +1,7 @@
 # Automaten & Berekenbaarheid
 
-Deze repository bevat:
+This repository contains additional material (made by myself) for the course _Automaten en Berekenbaarheid_ (2nd year Computer Science @ KU Leuven Kulak):
 
--   Aanvullende bewijzen en constructies
--   Een voorbereiding (oplijsting van belangrijke zaken) voor de eerste Gequoteerde Oefenzitting
+-   Proofs of theorems and missing constructions (`/Aanvullingen cursus`)
+-   A preparation (listing of important matters) for the first quoted exercise session (`/Voorbereiding GOZ1`)
+-   The actual first quoted exercise session (`/goz1`)
